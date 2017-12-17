@@ -17,18 +17,6 @@
 </head>
 
 <body class="bg-dark">
-<?php
-$servername = "27.116.81.3";
-$username = "hwadmin";
-$password = "1234";
-
-$conn = new mysqli($servername, $username, $password);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-echo "Connected successfully";
-?>
-
   <div class="container">
     <div class="card card-register mx-auto mt-5">
       <div class="card-header">회원가입</div>
