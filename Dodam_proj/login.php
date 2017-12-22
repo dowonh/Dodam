@@ -29,13 +29,13 @@ if($result) {
 
     if($result) {
         $_SESSION['login_user']=$g_name;
-        $loginuser=$g_name;
 
         echo "<meta http-equiv='refresh' content='0; url=index_Login.html'>";
         }
 }
 
 else {
+      echo "<script> alert('비밀번호를 입력해주세요!');</script>";
     echo "<meta http-equiv='refresh' content='0; url=login.html'>";
 }
 
