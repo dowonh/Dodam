@@ -10,7 +10,9 @@ $data_stream = "'".$_POST['guest_ID']."', '".$_POST['guest_password']."', '".$_P
 $query = "insert into guest(guest_ID, guest_password, guest_age, guest_local) values (".$data_stream.")";
 $result = mysqli_query($connect, $query);
 
+
 mysqli_close($connect);
+
 
 echo ('가입이 완료되었습니다. 메인 화면으로 이동합니다..');
 echo("<meta http-equiv='Refresh' content='2; URL=index.html'>");

@@ -1,76 +1,202 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="utf-8">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <title>회원가입</title>
-  <!-- Bootstrap core CSS-->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Custom fonts for this template-->
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <!-- Custom styles for this template-->
-  <link href="css/sb-admin.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>register - DoDam DoDam</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+
 </head>
 
-<body class="bg-dark">
-  <div class="container">
-    <div class="card card-register mx-auto mt-5">
-      <div class="card-header">회원가입</div>
-      <div class="card-body">
-        <form nmae="register_form" method="post" action="register2.php">
+<body>
+<style type="text/css">
+    /* Full-width inputs */
+    input[type=text], input[type=password] {
+        width: 50%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
 
-          <div class="form-group">
-            <div class="form-row">
-              <div class="col-md-6">
-                <label for="exampleInputName">ID</label>
-                <input class="form-control" name ="guest_ID" type="text" aria-describedby="idHelp" placeholder="Enter ID">
-              </div>
-              <div class="col-md-6">
-              <br>
-                 <button type="button" class="btn btn-primary">중복 검사</button>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="form-row">
-              <div class="col-md-6">
-                <label for="exampleInputPassword1">Password</label>
-                <input class="form-control" name = "guest_password"  type="password" placeholder="Password">
-              </div>
-              <!-- <div class="col-md-6">
-                <label for="exampleConfirmPassword">Confirm password</label>
-                <input class="form-control" id="exampleConfirmPassword" type="password" placeholder="Confirm password">
-              </div> -->
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputage">Age</label>
-            <input class="form-control" name = "guest_age" type="text" aria-describedby="ageHelp" placeholder="Enter age">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputlocal">Local</label>
-            <input class="form-control" name="guest_local" type="text" aria-describedby="localHelp" placeholder="Enter local">
-          </div>
-          <input type=submit class="btn btn-primary btn-block" value="회원가입">
-        </form>
+    /* Set a style for all buttons */
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 50%;
+    }
 
-        <div class="text-center">
-          <a class="d-block small mt-3" href="login.html">로그인</a>
-          <a class="d-block small" href="forgot-password.html">비밀번호를 잊으셨나요?</a>
+
+
+    /* Add a hover effect for buttons */
+    button:hover {
+        opacity: 0.8;
+    }
+
+    .container {
+        text-align: center;
+    }
+    /* Extra style for the cancel button (red) */
+    .cancelbtn {
+        width: auto;
+        padding: 10px 18px;
+        background-color: #f44336;
+    }
+
+    /* Center the avatar image inside this container */
+    .imgcontainer {
+        text-align: center;
+        margin: 60px 0 12px 0;
+    }
+
+    /* Avatar image */
+    img.avatar {
+        width: 40%;
+        border-radius: 50%;
+    }
+
+    img.size {
+        margin: 60px 0 12px 0;
+        height: 24%;
+        width: 24%;
+    }
+
+    /* The "Forgot password" text */
+    span.psw {
+        float: right;
+        padding-top: 16px;
+    }
+    container.st {
+     width: 150px;
+        height: 30px;
+        padding-left: 5px;
+        font-size: 15px;
+        color:red;
+        border: 1px solid red;
+        border-radius: 3px;
+     }
+
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 300px) {
+        span.psw {
+            display: block;
+            float: none;
+        }
+        .cancelbtn {
+            width: 100%;
+        }
+    }
+</style>
+
+
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="index.html" style="color:	#669966" >DoDam DoDam</a>
+        <button class="navbar-toggler navbar-toggler-right ml-md-auto" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="nav navbar-nav ml-auto ">
+                <li class="nav-item">
+                    <a href="index.html" style="color:	#669966">Previous</a>
+                </li>
+                <li class="nav-item">
+                    <a href="signup.html" style="color: #669966">Sign Up</a>
+                </li>
+            </ul>
         </div>
-      </div>
     </div>
-  </div>
+</nav>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<form action="register2.php" method="post">
+    <div class="container text-center">
+        <img src="img/img_avatar2.jpg" class="rounded-circle size">
+    </div>
+
+    <div class="container">
+        <label><b>Username</b></label>
+        <br>
+        <input type="text" placeholder="Enter Username" name="guest_ID" required>
+        <br>
+        <label><b>Password</b></label>
+        <br>
+        <input type="password" placeholder="Enter Password" name="guest_password" required>
+        <br>
+        <label><b>Age</b></label>
+        <br>
+        <select class="st" name="guest_age">
+          <option>나이</option>
+          <option value = "10">10대</option>
+          <option value = "20">20대</option>
+          <option value = "30">30대</option>
+          <option value = "40">40대</option>
+          <option value = "50">50대</option>
+          <option value = "60">60대</option>
+          <option value = "00">기타</option>
+        </select>
+        <br><br>
+        <label><b>Local</b></label>
+        <!-- <input type="text" placeholder="Enter local" name="guest_local" required> -->
+        <br>
+        <select class="" name="guest_local">
+          <option>전국</option>
+          <option value = "seoul">서울특별시</option>
+          <option value = "인천광역시">인천광역시</option>
+          <option value = "대전광역시">대전광역시</option>
+          <option value = "대구광역시">대구광역시</option>
+          <option value = "광주광역시">광주광역시</option>
+          <option value = "울산광역시">울산광역시</option>
+          <option value = "부산광역시">부산광역시</option>
+          <option value = "세종특별자치시">세종특별자치시</option>
+          <option value = "경기도">경기도</option>
+          <option value = "강원도">강원도</option>
+          <option value = "충청북도">충청북도</option>
+          <option value = "충청남도">충청남도</option>
+          <option value = "경상북도">경상북도</option>
+          <option value = "경상남도">경상남도</option>
+          <option value = "전라북도">전라북도</option>
+          <option value = "전라남도">전라남도</option>
+          <option value = "제주도">제주도</option>
+        </select>
+        <br><br>
+    </div>
+
+    <div class="container">
+        <button type="submit">register</button>
+    </div>
+
+</form>
+
+    <!-- <div class="container" style="background-color:#f1f1f1">
+        <span class="psw">Forgot <a href="#">password?</a></span>
+    </div> -->
+</form>
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 </body>
-
 </html>
