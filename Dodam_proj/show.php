@@ -21,6 +21,8 @@
   <!-- Custom styles for this template -->
   <link href="css/clean-blog.min.css" rel="stylesheet">
 
+	<link href="http://fonts.googleapis.com/earlyaccess/jejugothic.css" rel="stylesheet">
+
 </head>
 
 <style>
@@ -80,6 +82,28 @@
     from {transform: scale(0)}
     to {transform: scale(1)}
   }
+
+  .box {
+		font-family: 'Jeju Gothic', sans-serif;
+    font-size: 0.90em;
+    width: 2000px;
+    margin: 50px;
+    padding: 50px;
+    /* border: 2.5px solid #ccc; */
+		color : #696969;
+    float: left;
+}
+  .box strong {
+		font-family: 'Jeju Gothic';
+    color: #696969;
+  }
+  .box .info {
+    color: #999;
+  }
+
+  .myfont{
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
 </style>
 
 <script>
@@ -119,62 +143,18 @@
 </style>
   <!-- Page Header -->
   <header class="masthead" style="background-image: url('img/bg-masthead.jpg')">
-    <form action="list.php" method="get">
+    <form action="./list/list.php" method="get">
     <div class="overlay"></div>
     <div class="container text-center">
       <div class="row">
         <div class="col-xl-9  mx-auto">
-          <div class="post-heading">
-            <h1 >궁금한 축제 정보를 검색하세요!</h1>
-            <select class="form-control" name="do">
-              <option>전국</option>
-              <option>1234</option>
-              <option>서울특별시</option>
-              <option>인천광역시</option>
-              <option>대전광역시</option>
-              <option>대구광역시</option>
-              <option>광주광역시</option>
-              <option>울산광역시</option>
-              <option>부산광역시</option>
-              <option>세종특별자치시</option>
-              <option>경기도</option>
-              <option>강원도</option>
-              <option>충청북도</option>
-              <option>충청남도</option>
-              <option>경상북도</option>
-              <option>경상남도</option>
-              <option>전라북도</option>
-              <option>전라남도</option>
-              <option>제주도</option>
+          <div class="post-heading" >
+            <h2>aa</h2>
 
-            </select>
-            <select class="form-control" name="year">
-              <option>01</option>
-              <option>02</option>
-              <option>03</option>
-              <option>04</option>
-              <option>05</option>
-              <option>06</option>
-              <option>07</option>
-              <option>08</option>
-              <option>09</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-            </select>
-            <br>
-
-              <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+              <!-- <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
                   <div class="form-row">
-                    <div class="col-12 col-md-9 mb-2 mb-md-0">
-                      <input type="text" class="" placeholder="Search for festival ..." name="keyord">
-                    </div>
-                    <div class="col-12 col-md-3">
-                      <button type="submit" class="btn btn-block btn-primary">Search</button>
-                    </div>
                   </div>
-              </div>
-
+              </div> -->
           </div>
           </div>
       </div>
@@ -183,33 +163,64 @@
   </header>
 
   <!-- Icons Grid -->
-  <section class="feature bg-light text-center">
+  <!-- <section class="feature bg-light text-center"> -->
     <div class="container">
       <div class="row">
-        <div class="col-lg-4">
-          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-            <a href="curfesti.php"><i class="fa fa-desktop fa-5x" aria-hidden="true" align="center"></i><a> <p>
-            <h3>진행중인 축제</h3>
-            <p class="lead mb-0">최근 한달간 진행중인 축제 정보를 볼 수 있습니다.</p>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-            <a href="curfesti.php"><i class="fa fa-heart fa-5x" align="center" aria-hidden="true"></i></a><p>
-            <h3>개인을 위한 추천 기능</h3>
-            <p class="lead mb-0">회원 정보와 Database를 비교해 개인에게 맞는 축제 정보를 제공합니다.</p>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-            <a href="blog.html"><i class="fa fa-home fa-5x" aria-hidden="true"></i><a><p>
-            <h3>개인 홈페이지</h3>
-            <p class="lead mb-0">사용자가 축제에 대한 게시물을 남기고, 다른 사람들과 공유할 수 있습니다.</p>
-          </div>
-        </div>
+				<?php
+	error_reporting(E_ALL);
+	ini_set("display_errors", 1);
+	require_once("dbconfig.php");
+?>
+<?php
+	$id = $_GET['id'];
+	$sql = 'select * from festival where festival_id='.$id;
+	$result = $db->query($sql);
+	$row = $result->fetch_assoc();
+	$sql = 'select * from locale where local_id='.$id;
+	$result = $db->query($sql);
+	$row2 = $result->fetch_assoc();
+	$sql = 'select * from period where month_id='.$id;
+	$result = $db->query($sql);
+	$row3 = $result->fetch_assoc();
+
+	// $image = $row['thumbnail'];
+	// echo '<img src ="'.$image.'"></image><br>';
+	// $name = $row['festival_name'];
+	// echo $name.'<br><br>';
+	// $content = $row['festival_content'];
+	// echo $content.'<br>';
+	// $homepage = $row['homepage'];
+	// echo '홈페이지 : '.$homepage.'<br><br>';
+	// echo '연락처  : '.$row2['phone_number'].'<br><br>';
+	// echo '장소   : '.$row2['local_name'].' '.$row2['city'].' '.$row2['detail'].'<br><br>';
+	// echo '기간   : '.$row3['start'].' ~ '.$row3['end'].'<br>';
+?>
+		<div class = "box">
+				<div class = "col-sm-12">
+				<?php
+				$name = $row['festival_name'];
+				echo '<strong><h1><center>'.$name.'</center></h1></strong><hr color="#ccc" size="100" width="900"><br>';
+				$image = $row['thumbnail'];
+				echo '<center><img src ="'.$image.'" width="750"></image></center><br><p><hr color="black">';
+				?>
+				<div class = "col-sm-12">
+					<ul>
+				<?php
+				$homepage = $row['homepage'];
+				echo '<li> <strong>홈페이지</strong> &ensp;'.$homepage.'</li><hr color="#ccc" size="100" >';
+				echo '<li> <strong>연락처</strong> &ensp;'.$row2['phone_number'].'</li><hr color="#ccc" size="100" >';
+				echo '<li> <strong>주소 </strong>&ensp;'.$row2['local_name'].' '.$row2['city'].' '.$row2['detail'].'</li><hr color="#ccc" size="100">';
+				echo '<li> <strong>축제 기간 </strong>&ensp; '.$row3['start'].' ~ '.$row3['end'].'</li><hr color="#ccc" size="100" >';
+				$content = $row['festival_content'];
+				echo '<li> <strong>자세한 내용 </strong> &ensp; '.$content.'</li><br>';
+				 ?>
+			 </ul>
+				</div>
+			</div>
+		</div>
       </div>
     </div>
-  </section>
+  <!-- </section> -->
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
