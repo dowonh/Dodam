@@ -23,19 +23,7 @@ if(!isset($_SESSION['login_user'])){
     else
       $user = $_SESSION['login_user'];
 
-$title = $_POST['title'];
-$cont = $_POST['subject'];
-$datetime = date("Y-m-d H:i:s");
 
 
-$sql = "INSERT INTO community1 (com_title, com_content, com_author, com_datetime) VALUES ('$title', '$cont', '$user', '$datetime')";
 
-if(mysqli_query($conn, $sql)) {
-    echo "<meta http-equiv='refresh' content='0; url=blog.html'>";
-}
-
-else
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-
-mysqli_close($conn);
 ?>

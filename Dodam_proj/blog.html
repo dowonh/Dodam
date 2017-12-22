@@ -1,14 +1,4 @@
 <?php
-    session_start();
-    if(!isset($_SESSION['login_user'])){
-        $url = 'login.php';
-        header("location: $url");
-    }
-
-    else {
-          $user = $_SESSION['login_user'];
-
-
     $servername = "27.116.81.3";
     $username = "hwadmin";
     $password = "1234";
@@ -22,11 +12,15 @@
     die("Connection failed: " . mysqli_connect_error());
      }
 
+    session_start();
+    if(!isset($_SESSION['login_user'])){
+        $url = 'login.php';
+        header("location: $url");
+    }
 
-      $sql = "SELECT * from community1";
-      $result = mysqli_query($conn, $sql);
+    else {
+          $user = $_SESSION['login_user'];
 
-      while($row = mysqli_fetch_assoc($result))
       }
 ?>
 
@@ -132,72 +126,40 @@
 </header>
 
 <!-- Main Content -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-md-10 mx-auto">
-      <div class="post-preview">
-        <a href="post.html">
-          <h2 class="post-title">
-            <?php echo $row['com_title'] ?>
-          </h2>
-          <h3 class="post-subtitle">
-            <?php echo $row['com_content'] ?>
-          </h3>
-        </a>
-        <p class="post-meta">Posted by
-          <a href="#"> <?php echo $row['com_author'] ?></a>
-          on September 24, 2017</p>
-      </div>
-      <hr>
-      <div class="post-preview">
-        <a href="post.html">
-          <h2 class="post-title">
-            I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-          </h2>
-        </a>
-        <p class="post-meta">Posted by
-          <a href="#">Start Bootstrap</a>
-          on September 18, 2017</p>
-      </div>
-      <hr>
-      <div class="post-preview">
-        <a href="post.html">
-          <h2 class="post-title">
-            Science has not yet mastered prophecy
-          </h2>
-          <h3 class="post-subtitle">
-            We predict too much for the next year and yet far too little for the next ten.
-          </h3>
-        </a>
-        <p class="post-meta">Posted by
-          <a href="#">Start Bootstrap</a>
-          on August 24, 2017</p>
-      </div>
-      <hr>
-      <div class="post-preview">
-        <a href="post.html">
-          <h2 class="post-title">
-            Failure is not an option
-          </h2>
-          <h3 class="post-subtitle">
-            Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-          </h3>
-        </a>
-        <p class="post-meta">Posted by
-          <a href="#">Start Bootstrap</a>
-          on July 8, 2017</p>
-      </div>
-      <hr>
-      <!-- Pager -->
-      <div class="clearfix">
-        <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-      </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+            <?php
+
+      $sql = "SELECT * from community1 order by com_datetime desc";
+      $result = mysqli_query($conn, $sql);
+
+      while($row = mysqli_fetch_assoc($result)) {
+           $title = $row['com_title'];
+           $content = $row['com_content'];
+           $author = $row['com_author'];
+           $datetime = $row['com_datetime'];
+
+        ?>
+            <div class="post-preview">
+                <td class="no">
+                    <a href="post.html"><h2 class="post-title">
+                        <?php echo $title ?><br></h2>
+                    <h3 class="post-subtitle">
+                        <?php echo $content ?><br>
+                    </h3>
+                    </a>
+                    <p class="post-meta">Posted by
+                        <a href="#"> <?php echo $author?></a>
+                        <?php echo $datetime ?></p>
+                </td>
+                <hr>
+            </div>
+            <?php
+            }
+            ?>
+        </div>
     </div>
-  </div>
-</div>
-
-<hr>
-
 <!-- Footer -->
 <footer>
   <div class="container">

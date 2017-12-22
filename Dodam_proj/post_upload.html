@@ -11,7 +11,7 @@
     <title>Post Upload - DoDam DoDam</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="s  tylesheet">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -58,7 +58,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: burlywood" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="index.html">DoDam DoDam</a>
+        <a class="navbar-brand" href="index_Login.html">DoDam DoDam</a>
         <button class="navbar-toggler navbar-toggler-right ml-md-auto" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fa fa-bars"></i>
@@ -73,20 +73,29 @@
         </div>
     </div>
 </nav>
-
+<style type="text/css">
+    .btn {
+        font-size: 14px;
+        font-weight: 800;
+        padding: 15px 25px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-radius: 0;
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+</style>
 
 <div class="container">
     <div class="jumbotron" style="margin-top: 30px; background-color: white">
-    <form action="post_up.php" method="post">
-        <label for="fname">Title</label>
-        <input type="text" id="fname" name="title" placeholder="Title">
+        <form action="post_up.php" method="post">
+            <label for="fname" style=" font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">Title</label>
+            <input type="text" id="fname" name="title" placeholder="Title">
 
-        <label for="subject">Content</label>
-        <textarea id="subject" name="subject" placeholder="content" style="height:320px"></textarea>
+            <label for="subject" style=" font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">Content</label>
+            <textarea id="subject" name="subject" placeholder="content" style="height:320px"></textarea>
 
-        <button type="submit" class="btn btn-block btn-primary">Submit</button>
+            <button type="submit" class="btn btn-block btn-primary">Submit</button>
 
-    </form>
+        </form>
     </div>
 </div>
 </body>

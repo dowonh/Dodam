@@ -23,15 +23,14 @@ if(!isset($_SESSION['login_user'])){
     else
       $user = $_SESSION['login_user'];
 
-$title = $_POST['title'];
-$cont = $_POST['subject'];
+$content = $_POST['fp'];
 $datetime = date("Y-m-d H:i:s");
 
 
-$sql = "INSERT INTO community1 (com_title, com_content, com_author, com_datetime) VALUES ('$title', '$cont', '$user', '$datetime')";
+$sql = "INSERT INTO footprint (fp_author, fp_content, fp_datetime) VALUES ('$user', '$content', '$datetime')";
 
 if(mysqli_query($conn, $sql)) {
-    echo "<meta http-equiv='refresh' content='0; url=blog.html'>";
+    echo "<meta http-equiv='refresh' content='0; url=contact.html'>";
 }
 
 else
