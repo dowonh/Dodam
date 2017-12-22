@@ -171,53 +171,20 @@
 	ini_set("display_errors", 1);
 	require_once("dbconfig.php");
 ?>
-<?php
-	$id = $_GET['id'];
-	$sql = 'select * from festival where festival_id='.$id;
-	$result = $db->query($sql);
-	$row = $result->fetch_assoc();
-	$sql = 'select * from locale where local_id='.$id;
-	$result = $db->query($sql);
-	$row2 = $result->fetch_assoc();
-	$sql = 'select * from period where month_id='.$id;
-	$result = $db->query($sql);
-	$row3 = $result->fetch_assoc();
-
-	// $image = $row['thumbnail'];
-	// echo '<img src ="'.$image.'"></image><br>';
-	// $name = $row['festival_name'];
-	// echo $name.'<br><br>';
-	// $content = $row['festival_content'];
-	// echo $content.'<br>';
-	// $homepage = $row['homepage'];
-	// echo '홈페이지 : '.$homepage.'<br><br>';
-	// echo '연락처  : '.$row2['phone_number'].'<br><br>';
-	// echo '장소   : '.$row2['local_name'].' '.$row2['city'].' '.$row2['detail'].'<br><br>';
-	// echo '기간   : '.$row3['start'].' ~ '.$row3['end'].'<br>';
-?>
-		<div class = "box">
-				<div class = "col-sm-12">
-				<?php
-				$name = $row['festival_name'];
-				echo '<strong><h1><center>'.$name.'</center></h1></strong><hr color="#ccc" size="100" width="900"><br>';
-				$image = $row['thumbnail'];
-				echo '<center><img src ="'.$image.'" width="750"></image></center><br><p><hr color="black">';
-				?>
-				<div class = "col-sm-12">
-					<ul>
-				<?php
-				$homepage = $row['homepage'];
-				echo '<li> <strong>홈페이지</strong> &ensp;'.$homepage.'</li><hr color="#ccc" size="100" >';
-				echo '<li> <strong>연락처</strong> &ensp;'.$row2['phone_number'].'</li><hr color="#ccc" size="100" >';
-				echo '<li> <strong>주소 </strong>&ensp;'.$row2['local_name'].' '.$row2['city'].' '.$row2['detail'].'</li><hr color="#ccc" size="100">';
-				echo '<li> <strong>축제 기간 </strong>&ensp; '.$row3['start'].' ~ '.$row3['end'].'</li><hr color="#ccc" size="100" >';
-				$content = $row['festival_content'];
-				echo '<li> <strong>자세한 내용 </strong> &ensp; '.$content.'</li><br>';
-				 ?>
-			 </ul>
-				</div>
+			<?php
+			$sql = 'select * from festival where MONTH((select start from period where period.month_id=festival.month_id))=MONTH(curdate()) limit 0, 10';
+			$result = $db->query($sql);
+			?>
+			<div class = "box">
+			<?php
+			while($row = $result->fetch_assoc())
+			{
+			echo '<img src="'.$row['thumbnail'].'" width="400" height="200"></img>  ';
+			echo '<a href="./show.php?id='.$row['festival_id'].'">'.$row['festival_name'].'</a><p>';
+			}
+			?>
 			</div>
-		</div>
+
       </div>
     </div>
   <!-- </section> -->
