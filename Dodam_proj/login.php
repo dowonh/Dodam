@@ -35,7 +35,7 @@ if($result) {
 }
 
 else {
-      echo "<script> alert('비밀번호를 입력해주세요!');</script>";
+      echo "<script> alert('아이디 혹은 비밀번호를 확인하세요!');</script>";
     echo "<meta http-equiv='refresh' content='0; url=login.html'>";
 }
 
