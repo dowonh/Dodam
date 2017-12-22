@@ -7,6 +7,26 @@
 
     else {
           $user = $_SESSION['login_user'];
+
+
+    $servername = "27.116.81.3";
+    $username = "hwadmin";
+    $password = "1234";
+    $dbname = "festivalhw";
+
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
+
+    // Check connection
+    if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+     }
+
+
+      $sql = "SELECT * from community1";
+      $result = mysqli_query($conn, $sql);
+
+      while($row = mysqli_fetch_assoc($result))
       }
 ?>
 
@@ -225,3 +245,6 @@
 </body>
 
 </html>
+
+
+
