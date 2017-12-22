@@ -24,14 +24,10 @@ $result = mysqli_query($conn, $sql);
 $result = mysqli_num_rows($result);
 
 if($result) {
-    $sql = "UPDATE guest SET guest_login = 1 WHERE guest_ID = '$g_name'";
-    $result = mysqli_query($conn, $sql);
-
-    if($result) {
         $_SESSION['login_user']=$g_name;
 
         echo "<meta http-equiv='refresh' content='0; url=index_Login.html'>";
-        }
+
 }
 
 else {

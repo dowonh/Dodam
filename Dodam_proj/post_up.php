@@ -26,9 +26,6 @@ if(!isset($_SESSION['login_user'])){
 $title = $_POST['title'];
 $cont = $_POST['subject'];
 
-echo $title, ", ", $cont,", ", $user;
-
-
 $sql = "INSERT INTO community1 (com_title, com_content, com_author) VALUES ('$title', '$cont', '$user')";
 
 if(mysqli_query($conn, $sql)) {
