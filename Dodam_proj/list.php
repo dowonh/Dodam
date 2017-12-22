@@ -80,6 +80,25 @@
     from {transform: scale(0)}
     to {transform: scale(1)}
   }
+
+  .box {
+    font-size: 0.90em;
+    width: 500px;
+    margin: 10px;
+    padding: 10px;
+    border: 1.5px solid #ccc;
+    float: left;
+}
+  .box strong {
+    color: skyblue;
+  }
+  .box .info {
+    color: #999;
+  }
+
+  .myfont{
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
 </style>
 
 <script>
@@ -139,7 +158,7 @@
   </header>
 
   <!-- Icons Grid -->
-  <section class="feature bg-light text-center">
+  <!-- <section class="feature bg-light text-center"> -->
     <div class="container">
       <div class="row">
 
@@ -306,15 +325,20 @@
         		$festname = $row['festival_name'];
         ?>
         		<!-- <td class = "no"><?php echo $row['festival_id']?></td> <br> -->
-        		<td class = "no"><img src="<?php echo $row['thumbnail']?>" width="500" height="200"></img></td> &nbsp;&nbsp;&nbsp;
-        		<td class = "no"><a href="./show.php?id=<?php echo $row['festival_id']?>"><?php echo $row['festival_name']?></a></td> <br>
-        		시작 날짜 : <td class = "no"><?php echo $start?></td> <br>
-        		종료 날짜 : <td class = "no"><?php echo $end?></td>
-        		<br></br>
+            <div class = "box">
+        		<div class = "col-sm-12"> <img class="img-thumbnail" src="<?php echo $row['thumbnail']?>" width="500" height="100"></img> </div> <p>
+        		<div class = "col-sm-12">
+              <strong><a href="./show.php?id=<?php echo $row['festival_id']?>"><?php echo $row['festival_name']?></a></strong> <br><br>
+        		<div class = "marking"> 시작 날짜 :  <?php echo $start?></div>
+        		<div class = "marking"> 종료 날짜 :  <?php echo $end?></div>
+            </div>
+          </div>
         <?php
         	}
         ?>
+        <p>
         	<div class = "paging">
+            <p>
         		<?php echo $paging?>
         	</div>
         	<?php
@@ -323,7 +347,7 @@
 
       </div>
     </div>
-  </section>
+  <!-- </section> -->
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
