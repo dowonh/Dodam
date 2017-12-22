@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Blog - DoDam DoDam</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <!-- Custom styles for this template -->
+  <link href="css/clean-blog.min.css" rel="stylesheet">
+
+</head>
+
+<style>
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+  }
+
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5px auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+
+  /* The Close Button */
+  .close {
+    /* Position it in the top right corner outside of the modal */
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+  }
+
+  /* Close button on hover */
+  .close:hover,
+  .close:focus {
+    color: red;
+    cursor: pointer;
+  }
+
+  /* Add Zoom Animation */
+  .animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+  }
+
+  @-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+  }
+
+  @keyframes animatezoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+  }
+</style>
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+
+  <body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">DoDam DoDam</a>
+      <button class="navbar-toggler navbar-toggler-right ml-md-auto" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fa fa-bars"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="login.html">Login</a>
+          </li>
+          <li class="nav-item">
+            <a href="../DODAM/">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html">Community</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<style type="text/css">
+
+</style>
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('img/bg-masthead.jpg')">
+    <div class="overlay"></div>
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-xl-9  mx-auto">
+          <div class="post-heading" >
+            <h1 >궁금한 축제 정보를 검색하세요!</h1>
+            <select class="form-control">
+              <option>전국</option>
+              <option>서울특별시</option>
+              <option>인천광역시</option>
+              <option>대전광역시</option>
+              <option>대구광역시</option>
+              <option>광주광역시</option>
+              <option>울산광역시</option>
+              <option>부산광역시</option>
+              <option>세종특별자치시</option>
+              <option>경기도</option>
+              <option>강원도</option>
+              <option>충청북도</option>
+              <option>충청남도</option>
+              <option>경상북도</option>
+              <option>경상남도</option>
+              <option>전라북도</option>
+              <option>전라남도</option>
+              <option>제주도</option>
+
+            </select>
+            <select class="form-control">
+              <option>2017년</option>
+              <option>1월</option>
+              <option>2월</option>
+              <option>3월</option>
+              <option>4월</option>
+              <option>5월</option>
+              <option>6월</option>
+              <option>7월</option>
+              <option>8월</option>
+              <option>9월</option>
+              <option>10월</option>
+              <option>11월</option>
+              <option>12월</option>
+            </select>
+            <form action="#" method="post">
+              <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                  <div class="form-row">
+                    <div class="col-12 col-md-9 mb-2 mb-md-0">
+                      <input type="email" class="form-control form-control-lg" placeholder="Search for festival ...">
+                    </div>
+                    <div class="col-12 col-md-3">
+                      <button type="submit" class="btn btn-block btn-primary">Search</button>
+                    </div>
+                  </div>
+              </div>
+              </form>
+          </div>
+          </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Icons Grid -->
+  <section class="feature bg-light text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="icon-screen-desktop m-auto text-primary"></i>
+            </div>
+            <h3>진행중인 축제</h3>
+            <p class="lead mb-0">최근 한달간 진행중인 축제 정보를 볼 수 있습니다.</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="icon-layers m-auto text-primary"></i>
+            </div>
+            <h3>개인을 위한 추천 기능</h3>
+            <p class="lead mb-0">회원 정보와 Database를 비교해 개인에게 맞는 축제 정보를 제공합니다.</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="icon-check m-auto text-primary"></i>
+            </div>
+            <h3>축제 검색</h3>
+            <p class="lead mb-0">축제 기간, 위치 등에 따라 원하는 축제 정보를 검색 할 수 있습니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>
