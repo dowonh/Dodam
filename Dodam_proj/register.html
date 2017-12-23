@@ -85,7 +85,7 @@
         float: right;
         padding-top: 16px;
     }
-    container.st {
+    /* container.st {
      width: 150px;
         height: 30px;
         padding-left: 5px;
@@ -93,7 +93,7 @@
         color:red;
         border: 1px solid red;
         border-radius: 3px;
-     }
+     } */
 
     /* Change styles for span and cancel button on extra small screens */
     @media screen and (max-width: 300px) {
@@ -147,7 +147,8 @@
         <br>
         <label><b>Age</b></label>
         <br>
-        <select class="st" name="guest_age">
+        
+        <select name="guest_age" width="300px">
           <option>나이</option>
           <option value = "10">10대</option>
           <option value = "20">20대</option>
@@ -161,7 +162,7 @@
         <label><b>Local</b></label>
         <!-- <input type="text" placeholder="Enter local" name="guest_local" required> -->
         <br>
-        <select class="" name="guest_local">
+        <select name="guest_local">
           <option>전국</option>
           <option value = "seoul">서울특별시</option>
           <option value = "인천광역시">인천광역시</option>
@@ -197,6 +198,8 @@
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/bootstrap-select.min.js"></script>
+<script src="vendor/defaults-ko-KR.min.js"></script>
 
 </body>
 </html>

@@ -181,6 +181,7 @@
 			{
 			echo '<img src="'.$row['thumbnail'].'" width="400" height="200"></img>  ';
 			echo '<a href="./show.php?id='.$row['festival_id'].'">'.$row['festival_name'].'</a><p>';
+
 			}
 			?>
 			</div>
