@@ -95,9 +95,9 @@
   .box .info {
     color: #999;
   }
-
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
   .myfont{
-    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: Jeju Gothic', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 </style>
 
@@ -326,11 +326,11 @@
         ?>
         		<!-- <td class = "no"><?php echo $row['festival_id']?></td> <br> -->
             <div class = "box">
-        		<div class = "col-sm-12"> <img class="img-thumbnail" src="<?php echo $row['thumbnail']?>" width="500" height="100"></img> </div> <p>
+        		<div class = "col-sm-12"> <img class="img-thumbnail" src="<?php echo $row['thumbnail']?>" width="500" height="90"></img> </div> <p>
         		<div class = "col-sm-12">
-              <strong><h3><a href="./show.php?id=<?php echo $row['festival_id']?>"><?php echo $row['festival_name']?></a></h3></strong> <br>
-        		<div class = "marking"><h5> 시작 날짜 :  <?php echo $start?></h5></div>
-        		<div class = "marking"><h5> 종료 날짜 :  <?php echo $end?></h5></div>
+              <strong><a href="./show.php?id=<?php echo $row['festival_id']?>"><?php echo $row['festival_name']?></a></strong> <br><br>
+        		<div class = "marking"> 시작 날짜 :  <?php echo $start?></div>
+        		<div class = "marking"> 종료 날짜 :  <?php echo $end?></div>
             </div>
           </div>
         <?php
