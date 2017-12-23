@@ -172,7 +172,7 @@
 	require_once("dbconfig.php");
 ?>
 			<?php
-			$sql = 'select * from festival where MONTH((select start from period where period.month_id=festival.month_id))=MONTH(curdate()) limit 0, 10';
+			$sql = 'select * from festival where MONTH((select start from period where period.month_id=festival.month_id))=MONTH(curdate()) AND  YEAR((select start from period where period.month_id=festival.month_id)) >= YEAR(curdate()) limit 0, 10';
 			$result = $db->query($sql);
 			?>
 			<div class = "box">
