@@ -1,3 +1,31 @@
+<?php
+    $servername = "27.116.81.3";
+    $username = "hwadmin";
+    $password = "1234";
+    $dbname = "festivalhw";
+	$lodis = 0;
+
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
+
+    // Check connection
+    if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+     }
+
+    session_start();
+    if(!isset($_SESSION['login_user'])){
+		$lodis=0;
+    }
+
+    else {
+          $user = $_SESSION['login_user'];
+		  $lodis=1;
+
+      }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -173,6 +201,8 @@
 ?>
 <?php
 	$id = $_GET['id'];
+	$sql = 'update festival set view_count = view_count + 1 where festival_id='.$id;
+	$db->query($sql);
 	$sql = 'select * from festival where festival_id='.$id;
 	$result = $db->query($sql);
 	$row = $result->fetch_assoc();
@@ -213,8 +243,103 @@
 				echo '<li> <strong>축제 기간 </strong>&ensp; '.$row3['start'].' ~ '.$row3['end'].'</li><hr color="#ccc" size="100" >';
 				$content = $row['festival_content'];
 				echo '<li> <strong>자세한 내용 </strong> &ensp; '.$content.'</li><br>';
+				echo '<li> <strong>조회수 </strong> &ensp; '.$row['view_count'].'</li><br>';
+				echo '<li> <strong>좋아요 </strong> &ensp; '.$row['like_count'].'</li><br>';
 				 ?>
-			 </ul>
+				<form action="like.php" method="get">
+					<input type="hidden" name="id" value="<?php echo $row['festival_id']?>" />
+					<button type="submit">좋아요</button>
+				</form>
+			</ul>
+			</li><hr color="#ccc" size="100" >
+			
+			
+			
+			
+			<?php
+				if($lodis == 1)
+				{
+					$sql = 'SELECT * FROM guest WHERE guest_ID = "'.$user.'"';
+					$rst = $db->query($sql);
+					$rw = $rst->fetch_assoc();
+					$sql = 'SELECT count(*) as a from comment group by festival_id having festival_id='.$id;
+					$rst = $db->query($sql);
+					$rw2 = $rst->fetch_assoc();
+					$count = $rw2['a'];
+					
+					?>
+					
+			<form action="comment.php" method="get">
+			
+			<select class="form-control" name="point">
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select> <p>
+				<input type="hidden" name="name" value="<?php echo $rw['guest_ID'];?>">
+				<input type="hidden" name="islogin" value="1">
+				<input type="hidden" name="password" value="<?php echo $rw['guest_password'];?>">
+				<input type="hidden" name="id" value="<?php echo $id;?>">
+				<input type="text" name="comment" size="85" />
+				<input type="hidden" name="count" value="<?php echo $count;?>">
+				<button type="submit">댓글입력</button>
+			</form>
+					
+					<?php
+				}
+				else
+				{
+					$sql = 'SELECT count(*) as a from comment group by festival_id having festival_id='.$id;
+					$rst = $db->query($sql);
+					$rw2 = $rst->fetch_assoc();
+					$count = $rw2['a'];
+					?>
+					
+			<form action="comment.php" method="get">
+			
+			<select class="form-control" name="point">
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select> <p>
+				<input type="hidden" name="id" value="<?php echo $id;?>">
+				<input type="hidden" name="islogin" value="0">
+				<input type="text" name="name" size="20">
+				<input type="password" name="password" size="20">
+				<input type="text" name="comment" size="85" />
+				<input type="hidden" name="count" value="<?php echo $count;?>">
+				<button type="submit">댓글입력</button>
+			</form>
+			
+					
+					
+					<?php
+				}
+			?>
+			
+			
+			
+			
+			
+			
+			
+			 <?php
+				$sql = 'select * from comment where festival_id='.$id.' order by comment_number';
+				$res = $db->query($sql);
+				while($ro = $res->fetch_assoc())
+				{
+					?>
+					</li><hr color="#ccc" size="100" >
+					<?php
+					echo $ro['comment'].' '.$ro['point'].' '.$ro['name'];
+				}
+			 ?>
 				</div>
 			</div>
 		</div>
