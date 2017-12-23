@@ -45,7 +45,10 @@
         width: 50%;
     }
 
-
+    .font {
+        font-size: 17px;
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
 
     /* Add a hover effect for buttons */
     button:hover {
@@ -85,15 +88,6 @@
         float: right;
         padding-top: 16px;
     }
-    /* container.st {
-     width: 150px;
-        height: 30px;
-        padding-left: 5px;
-        font-size: 15px;
-        color:red;
-        border: 1px solid red;
-        border-radius: 3px;
-     } */
 
     /* Change styles for span and cancel button on extra small screens */
     @media screen and (max-width: 300px) {
@@ -136,7 +130,7 @@
         <img src="img/img_avatar2.jpg" class="rounded-circle size">
     </div>
 
-    <div class="container">
+    <div class="container text-center font-italic" >
         <label><b>Username</b></label>
         <br>
         <input type="text" placeholder="Enter Username" name="guest_ID" required>
@@ -147,8 +141,13 @@
         <br>
         <label><b>Age</b></label>
         <br>
+        <select class="text-center font" name="guest_age" style="width: 50%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;">
 
-        <select class="form-control" name="guest_age" >
           <option>나이</option>
           <option value = "10">10대</option>
           <option value = "20">20대</option>
@@ -160,9 +159,13 @@
         </select>
         <br>
         <label><b>Local</b></label>
-        <!-- <input type="text" placeholder="Enter local" name="guest_local" required> -->
         <br>
-        <select class="form-control" name="guest_local">
+        <select class="text-center font" name="guest_local" style="width: 50%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;">
           <option>전국</option>
           <option value = "seoul">서울특별시</option>
           <option value = "인천광역시">인천광역시</option>
@@ -186,7 +189,7 @@
     </div>
 
     <div class="container">
-        <button type="submit">register</button>
+        <button type="submit" class="btn">register</button>
     </div>
 
 </form>
