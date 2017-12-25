@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c70cf348-d746-4521-ba3d-57da41015a79" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/Dodam_proj/delete_view.php" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Dodam_proj/about.html" afterPath="$PROJECT_DIR$/Dodam_proj/about.html" />
-      <change beforePath="$PROJECT_DIR$/Dodam_proj/comment.php" afterPath="$PROJECT_DIR$/Dodam_proj/comment.php" />
-      <change beforePath="$PROJECT_DIR$/Dodam_proj/curfesti.html" afterPath="$PROJECT_DIR$/Dodam_proj/curfesti.html" />
-      <change beforePath="$PROJECT_DIR$/Dodam_proj/delete.php" afterPath="$PROJECT_DIR$/Dodam_proj/delete.php" />
-      <change beforePath="$PROJECT_DIR$/Dodam_proj/like.php" afterPath="$PROJECT_DIR$/Dodam_proj/like.php" />
-      <change beforePath="$PROJECT_DIR$/Dodam_proj/recofest.html" afterPath="$PROJECT_DIR$/Dodam_proj/recofest.html" />
-      <change beforePath="$PROJECT_DIR$/Dodam_proj/show_gayeon.html" afterPath="$PROJECT_DIR$/Dodam_proj/show_gayeon.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -532,7 +524,7 @@
       <workItem from="1513923696554" duration="15127000" />
       <workItem from="1513942329204" duration="42734000" />
       <workItem from="1514011723359" duration="9614000" />
-      <workItem from="1514048510051" duration="72868000" />
+      <workItem from="1514048510051" duration="72897000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <created>1513924290641</created>
@@ -618,11 +610,18 @@
       <option name="project" value="LOCAL" />
       <updated>1514189808854</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="25일 19시 지역맞춤 추천">
+      <created>1514198809828</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1514198809828</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="140343000" />
+    <option name="totallyTimeSpent" value="140372000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -675,7 +674,8 @@
     <MESSAGE value="25일 15시 like view 추가" />
     <MESSAGE value="25일 16시 like 오류 수정" />
     <MESSAGE value="25일 17시 댓글 삭제 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="25일 17시 댓글 삭제 추가" />
+    <MESSAGE value="25일 19시 지역맞춤 추천" />
+    <option name="LAST_COMMIT_MESSAGE" value="25일 19시 지역맞춤 추천" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
