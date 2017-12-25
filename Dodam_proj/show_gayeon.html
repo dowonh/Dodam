@@ -208,7 +208,13 @@
                 <div class="post-heading" >
                     <h2 style="font-size: 60px"><?php echo $row_f['festival_name'] ?></h2>
                 </div>
+
+                <form action="like.php" method="post">
+                    <input type="hidden" name="id" value="<?php echo $row_fest['festival_id']?> ">
+                    <button class="btn btn-danger"><span class="fa fa-heart">&nbsp; &nbsp;heart</span></button>
+                </form>
             </div>
+
         </div>
     </div>
     </form>
@@ -238,6 +244,11 @@
            ?>
         <div class="col-lg-6 mx-auto">
             <div class="container text-center ">
+                <h5 class="text-left"><span class="fa fa-eye">&nbsp;<?php echo $row_fest['view_count']?></span> &nbsp; &nbsp; <span class="fa fa-heart" style="color: darkred">&nbsp;<?php echo $row_fest['like_count']?>
+                    </span></h5>
+
+
+                <hr>
                 <img src="<?php echo $row_fest['thumbnail'] ?>" style="width: 450px; height: 360px;">
                 <hr>
              </div>
@@ -337,7 +348,16 @@
             ?>
             </div>
             <hr>
+
+            <div class="container">
+                <form action="comment.php" method="get">
+                    <input type="text" name="com" placeholder="Write Comment" style="width: 414px; height: 59px; margin-top: 2px; padding-left: 10px;">
+                    <input type="hidden" name="festid" value="<?php echo $festID ?>">
+                    <button class="btn btn-danger text-center" type="submit" style="width: 90px;  height: 59px; margin-bottom: 6px; padding: 5px">send</button>
+                </form>
+            </div>
         </div>
+
     </div>
 </div>
 

@@ -39,8 +39,9 @@
 
 <style>
     /* The Modal (background) */
+
     .font {
-        font-size: 14px;
+        font-size: 17px;
         font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
 
@@ -115,10 +116,13 @@
         color: #999;
     }
 
-    .myfont{
-        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
-    }
+    .fonta {
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-radius: 0;
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
 </style>
 
 
@@ -164,37 +168,49 @@
 </header>
 
 <div class="container" >
-    <div class="row">
-        <?php
-
-         $sql = 'SELECT * FROM festival, period WHERE festival.month_id = period.month_id and period.start <= date(now()) and date(now()) <= period.end and 2017 <= YEAR(start) order by start desc';
+    <?php
+         $sql = 'SELECT * FROM festival, period, locale WHERE festival.festival_id = locale.local_id and festival.festival_id = period.month_id and period.start <= date(now()) and date(now()) <= period.end and 2017 <= YEAR(start) order by start desc;';
         $result = mysqli_query($conn, $sql);
+        $resultNum = mysqli_num_rows($result);
+        ?>
+    <h3 class="fonta">total current : <?php echo $resultNum ?></h3>
+    <hr>
+    <div class="row">
+
+    <?php
 
         while($row = mysqli_fetch_assoc($result)) {
         $f_title = $row['festival_name'];
         $start = $row['start'];
         $end = $row['end'];
+        $local_name = $row['local_name'];
+        $city = $row['city'];
 
         ?>
-        <div class="col-3" >
+
+        <div class="col-4 mx-auto" >
             <div class="card">
-                <div class="card-header" style="justify-content: center;">
-                    <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"> <img src="<?php echo $row['thumbnail'] ?>" style="width: 300px; height: 200px;"></a>
+                <div class="card-header font" style="justify-content: center;">
+                    <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"> <img src="<?php echo $row['thumbnail'] ?>" style="margin-bottom: -13px; margin-top: -13px; margin-left: -21px; width: 350px; height: 200px;"></a>
                 </div>
-                <div class="card-body">
-                    <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><h3><?php echo $f_title ?></h3></a>
-                    <p>시작날짜 : <?php echo $start ?></p>
-                    <p>끝 날짜 : <?php echo $end ?></p>
+                <div class="card-body font" style="height: 245px">
+                    <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><h4 class="text-center" style="height: 50px; font-size: 22px;"><?php echo $f_title ?></h4></a>
+                    <hr>
+                    <h5 class="font" style="font-size: 18px;"><span class="fa fa-map">&nbsp; <?php echo $local_name ?>&nbsp;<?php echo $city ?></span></h5>
+                    <br><br>
+                    <h6>시작날짜 : <?php echo $start ?></h6>
+                    <h6>끝 날짜 : <?php echo $end ?></h6>
                 </div>
             </div>
-            <hr>
-
+            <br>
         </div>
+
         <?php
             }
             ?>
-    </div>
 
+    </div>
+    <hr>
 </div>
 <!-- </section> -->
 <!-- Bootstrap core JavaScript -->
