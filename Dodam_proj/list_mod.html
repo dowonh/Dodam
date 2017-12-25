@@ -147,7 +147,7 @@
 
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('img/bg-masthead.jpg')">
-    <form action="./list/list_mod.html" method="get">
+    <form action="./list/listmod.html" method="get">
     <div class="overlay"></div>
     <div class="container text-center">
         <div class="row">
@@ -245,7 +245,7 @@
     $prevPage = (($currentSection-1)*$oneSection);
     $nextPage = (($currentSection+1)*$oneSection) - ($oneSection - 1);
 
-    $paging = '<ul>';
+    $paging = '<h5>';
 
     if($page!=1)
     {
@@ -275,7 +275,7 @@
       $paging .= '<li class = "page page_next"><a href = "./list_mod.html?page='.$nextPage.'&year='.$year.'&do='.$do.'&keyword='.$keyword.'">다음</a></li>';
     }
 
-    $paging .= '</ul>';
+    $paging .= '</h5>';
 
     $currentLimit = ($onePage * $page) - $onePage;
     $sqlLimit = 'limit '.$currentLimit.', '.$onePage;
@@ -311,8 +311,9 @@
     }
 
     $result = $db->query($sql);
+    $resultNum = mysqli_num_rows($result);
 
-        $resultNum = mysqli_num_rows($result);
+
         ?>
     <h3 class="fonta">total current : <?php echo $resultNum ?></h3>
     <hr>
@@ -360,13 +361,10 @@
         <?php
             }
             ?>
-            <p>
-              <div class = "paging">
-                <p>
-                <?php echo $paging?>
-              </div>
-              <?php
-            ?>
+            <div class = "paging">
+              <p>
+          		<?php echo $paging?>
+          	</div>
 
     </div>
     <hr>
