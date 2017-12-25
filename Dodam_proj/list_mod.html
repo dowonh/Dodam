@@ -409,15 +409,15 @@
                     <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"> <img src="<?php echo $row['thumbnail'] ?>" style="margin-bottom: -13px; margin-top: -13px; margin-left: -21px; width: 350px; height: 200px;"></a>
                 </div>
                 <div class="card-body font" style="height: 275px">
-                    <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><h4 class="text-center" style="height: 50px; font-size: 22px;"><?php echo $festname ?></h4></a>
+                    <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><h4 class="text-center" style="height: 50px; font-size: 22px;"><?php echo $festname ?> [<?php echo $row['total_comment']?>]</h4></a>
                     <hr>
 
                     <br>
                     <h6>시작날짜 : <?php echo $start ?></h6>
                     <h6>끝 날짜 : <?php echo $end ?></h6>
                     <hr>
-                    <h5 class="text-left"><span class="fa fa-heart"  style="color: darkred">&nbsp;<?php echo $like?></span> &nbsp; &nbsp; <span class="fa fa-eye">&nbsp;<?php echo $view?>
-                    </span></h5>
+                    <h5 class="text-left fonta" style="font-size: 20px"><span class="fa fa-heart"  style="color: darkred">&nbsp;<?php echo $like?></span> &nbsp; &nbsp; <span class="fa fa-eye">&nbsp;<?php echo $view?></span>
+                        &nbsp; &nbsp;<span class="fa fa-star" style="color: goldenrod">&nbsp;<?php echo $row['festival_star'] ?></span></h5>
                 </div>
             </div>
             <br>

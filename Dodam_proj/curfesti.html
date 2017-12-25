@@ -217,6 +217,8 @@
 </header>
 
 <div class="container" >
+ <div class="row">
+     <div class="col-6 mx-auto">
     <?php
          $sql = 'SELECT * FROM festival, period, locale WHERE festival.festival_id = locale.local_id and festival.festival_id = period.month_id and period.start <= date(now()) and date(now()) <= period.end and 2017 <= YEAR(start) order by start desc;';
         $result = mysqli_query($conn, $sql);
@@ -226,6 +228,13 @@
         ?>
     <h3 class="fonta">total information : <?php echo $resultNum ?></h3>
     <hr>
+     </div>
+
+     <div class="col-6 mx-auto text-right">
+
+     </div>
+ </div>
+
     <div class="row">
 
     <?php
@@ -255,8 +264,8 @@
                     <h6 class="fonta" style="font-size: 15px;">시작날짜 : <?php echo $start ?></h6>
                     <h6 class="fonta" style="font-size: 15px;">끝 날짜 : <?php echo $end ?></h6>
                     <hr>
-                    <h5 class="text-left fonta" style="font-size: 20px"><span class="fa fa-heart"  style="color: darkred">&nbsp;<?php echo $like?></span> &nbsp; &nbsp; <span class="fa fa-eye">&nbsp;<?php echo $view?>
-                    </span></h5>
+                    <h5 class="text-left fonta" style="font-size: 20px"><span class="fa fa-heart"  style="color: darkred">&nbsp;<?php echo $like?></span> &nbsp; &nbsp; <span class="fa fa-eye">&nbsp;<?php echo $view?></span>
+                        &nbsp; &nbsp;<span class="fa fa-star" style="color: goldenrod">&nbsp;<?php echo $row['festival_star'] ?></span></h5>
                 </div>
             </div>
             <br>

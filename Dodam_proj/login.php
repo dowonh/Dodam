@@ -27,7 +27,6 @@ if($result) {
         $_SESSION['login_user']=$g_name;
 
         echo "<meta http-equiv='refresh' content='0; url=index.html'>";
-
 }
 
 else {

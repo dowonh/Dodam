@@ -253,7 +253,7 @@
 
         ?>
           <h6 class="font" style="font-size: 18px"><span class="fa fa-heart" style="color: red"></span> <?php echo $row['like_count'] ?>
-            &nbsp;<span class="fa fa-eye"></span> <?php echo $row['view_count']?></h6>
+            &nbsp;<span class="fa fa-eye"></span> <?php echo $row['view_count']?> &nbsp;<span class="fa fa-star" style="color: goldenrod"></span> <?php echo $row['festival_star']?></h6>
 
           <div class="media mx-auto" style="padding: 20px;" >
             <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><img src="<?php echo $thum ?>" style="width: 240px; height: 170px;"></a>
@@ -300,10 +300,11 @@
            $total_comment = $row['total_comment'];
 
         ?>
-          <h6 class="font" style="font-size: 18px"><span class="fa fa-heart" style="color: red"></span> <?php echo $row['like_count'] ?>
-          &nbsp;<span class="fa fa-eye"></span> <?php echo $row['view_count']?></h6>
+        <h6 class="font" style="font-size: 18px"><span class="fa fa-heart" style="color: red"></span> <?php echo $row['like_count'] ?>
+          &nbsp;<span class="fa fa-eye"></span> <?php echo $row['view_count']?> &nbsp;<span class="fa fa-star" style="color: goldenrod"></span> <?php echo $row['festival_star']?></h6>
 
-          <div class="media mx-auto" style="padding: 20px;" >
+
+        <div class="media mx-auto" style="padding: 20px;" >
             <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><img src="<?php echo $thum ?>" style="width: 240px; height: 170px;"></a>
             <div class="media-body" style="margin-left: 10px; height: 170px;">
               <h4 style="font-size: 20px;"><a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><?php echo $name ?> [<?php echo $total_comment?>] </a></h4><br><br>
@@ -352,7 +353,8 @@
 
         ?>
           <h6 class="font" style="font-size: 18px"><span class="fa fa-heart" style="color: red"></span> <?php echo $row['like_count'] ?>
-            &nbsp;<span class="fa fa-eye"></span> <?php echo $row['view_count']?></h6>
+            &nbsp;<span class="fa fa-eye"></span> <?php echo $row['view_count']?> &nbsp;<span class="fa fa-star" style="color: goldenrod"></span> <?php echo $row['festival_star']?></h6>
+
 
           <div class="media mx-auto" style="padding: 20px;" >
             <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><img src="<?php echo $thum ?>" style="width: 240px; height: 170px;"></a>
