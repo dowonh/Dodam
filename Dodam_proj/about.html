@@ -250,9 +250,9 @@
               <h5><?php echo $row['start'] ?><br></h5>
               <h5><?php echo $row['end']?></h5>
             </div>
-            <form action="like.php" method="post" style="vertical-align: middle;">
+            <form action="#" method="post" style="vertical-align: middle;">
               <input type="hidden" name="id" value="<?php echo $row['festival_id'] ?>">
-              <button type="submit" class="btn btn-danger">unlike</button>
+              <a href="#"><i class="fa fa-close"></i></a>
             </form>
 
           </div>
@@ -289,13 +289,13 @@
           <div class="media mx-auto" style="background-color: #0b2e13; padding: 20px;" >
             <a href="./show.html?id=<?php echo $row['festival_id'] ?>"><img src="<?php echo $thum ?>" style="width: 240px; height: 170px;"></a>
             <div class="media-body" style="background-color: #533f03; margin-left: 10px; height: 170px;">
-              <h4><a href="./show.html?id=<?php echo $row['festival_id'] ?>"><?php echo $name ?></a></h4><br><br>
+              <h4 style="font-size: 20px;"><a href="./show.html?id=<?php echo $row['festival_id'] ?>"><?php echo $name ?></a></h4><br><br>
               <h5><?php echo $row['start'] ?><br></h5>
               <h5><?php echo $row['end']?></h5>
           </div>
             <form action="like.php" method="post" style="vertical-align: middle;">
               <input type="hidden" name="id" value="<?php echo $row['festival_id'] ?>">
-              <button type="submit" class="btn btn-danger">unlike</button>
+              <button type="submit" class="btn btn-danger" style="width: 30px;"><span class="fa fa-heart-o" style="margin-left: -7px;"></span></button>
             </form>
 
         </div>

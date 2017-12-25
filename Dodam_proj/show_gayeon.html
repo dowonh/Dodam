@@ -209,8 +209,8 @@
                     <h2 style="font-size: 60px"><?php echo $row_f['festival_name'] ?></h2>
                 </div>
 
-                <form action="like.php" method="post">
-                    <input type="hidden" name="id" value="<?php echo $row_fest['festival_id']?> ">
+                <form action="like.php" method="get">
+                    <input type="hidden" name="id" value="<?php echo $festID ?> ">
                     <button class="btn btn-danger"><span class="fa fa-heart">&nbsp; &nbsp;heart</span></button>
                 </form>
             </div>

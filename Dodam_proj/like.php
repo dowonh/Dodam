@@ -22,7 +22,7 @@
 
 
 
-	$id = $_POST['id'];
+	$id = $_GET['id'];
 	$datetime = date("Y-m-d H:i:s");
 
     $sql = "select * from heart where like_guestID = '$user' and like_festID = '$id'";
