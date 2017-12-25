@@ -1,17 +1,4 @@
-<?php
-    $servername = "27.116.81.3";
-    $username = "hwadmin";
-    $password = "1234";
-    $dbname = "festivalhw";
 
-    // Create connection
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
-
-    // Check connection
-    if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-     }
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -125,6 +112,11 @@
         font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
 </style>
 
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 
 <body>
 
@@ -155,12 +147,13 @@
 
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('img/bg-masthead.jpg')">
+    <form action="./list/list_mod.html" method="get">
     <div class="overlay"></div>
     <div class="container text-center">
         <div class="row">
             <div class="col-xl-9  mx-auto">
                 <div class="post-heading" >
-                    <h2>현재 진행 중인 축제 정보</h2>
+                      <h2>원하는 축제 정보!</h2>
                 </div>
             </div>
         </div>
@@ -168,8 +161,157 @@
 </header>
 
 <div class="container" >
-    <?php
-       $sql = 'select * from festival LEFT OUTER JOIN locale ON festival.local_id = locale.local_id where local_name LIKE "%전라남도%" ';  $result = mysqli_query($conn, $sql);
+  <?php
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1);
+    require_once("dbconfig.php");
+  ?>
+  <?php
+
+    if(isset($_GET['page']))
+    {
+      $page = $_GET['page'];
+    }
+    else
+    {
+      $page=1;
+    }
+
+    if(isset($_GET['year']))
+    {
+      $year = $_GET['year'];
+    }
+    else
+    {
+      $year = '';
+    }
+
+    if(isset($_GET['do']))
+    {
+      $do = $_GET['do'];
+    }
+    else
+    {
+      $do = '';
+    }
+
+    if($do == '전국')
+    {
+      $do = '';
+    }
+
+    if(isset($_GET['keyword']))
+    {
+      $keyword = $_GET['keyword'];
+    }
+    else
+    {
+      $keyword = '';
+    }
+
+    $sql = 'select count(*) as cnt from festival order by festival_id desc';
+    $result3 = $db->query($sql);
+    $row3 = $result3->fetch_assoc();
+
+    $allPost = $row3['cnt'];
+
+    $onePage = 15;
+    $allPage = ceil($allPost/$onePage);
+
+    if($page<1||($allPage && $page)>$allPage)
+    {
+      ?>
+      <script>
+        alert("존재하지 않는 페이지 입니다");
+        history.back();
+      </script>
+      <?php
+      exit;
+    }
+    $oneSection = 10;
+    $currentSection = ceil($page/$oneSection);
+    $allSection = ceil($allPage/$oneSection);
+
+    $firstPage = ($currentSection * $oneSection) - ($oneSection - 1);
+
+    if($currentSection == $allSection)
+    {
+      $lastPage = $allPage;
+    }
+    else
+    {
+      $lastPage = $currentSection * $oneSection;
+    }
+    $prevPage = (($currentSection-1)*$oneSection);
+    $nextPage = (($currentSection+1)*$oneSection) - ($oneSection - 1);
+
+    $paging = '<ul>';
+
+    if($page!=1)
+    {
+      $paging .= '<li class = "page page_start"><a href="./list_mod.html?page=1&year='.$year.'&do='.$do.'&keyword='.$keyword.'">처음</a></li>';
+    }
+    if($currentSection != 1)
+    {
+      $paging .= '<li class="page page_prev"><a href="./list_mod.html?page='.$prevPage.'">이전</a></li>';
+    }
+
+    for($i = $firstPage ; $i<=$lastPage ; $i++)
+    {
+      if($i == $firstPage)
+      {
+        $paging .= '<li class="page current">'.$i.'</li>';
+
+      }
+      else
+      {
+        $paging .= '<li class = "page"><a href = "./list_mod.html?page='.$i.'&year='.$year.'&do='.$do.'&keyword='.$keyword.'">'
+  .$i.'</a></li>';
+      }
+    }
+
+    if($currentSection != $allSection)
+    {
+      $paging .= '<li class = "page page_next"><a href = "./list_mod.html?page='.$nextPage.'&year='.$year.'&do='.$do.'&keyword='.$keyword.'">다음</a></li>';
+    }
+
+    $paging .= '</ul>';
+
+    $currentLimit = ($onePage * $page) - $onePage;
+    $sqlLimit = 'limit '.$currentLimit.', '.$onePage;
+
+    $sqlWhere = ' ';
+
+    if($year !='')
+    {
+      $sqlWhere .= '(select start from period where period.month_id=festival.month_id) LIKE "%-'.$year.'-%"';
+    }
+    if($do !='')
+    {
+      if($sqlWhere == ' ')
+        $sqlWhere .= '(select local_name from locale where locale.local_id=festival.local_id) = "'.$do.'"';
+      else
+        $sqlWhere .= ' and (select local_name from locale where locale.local_id=festival.local_id) = "'.$do.'"';
+    }
+    if($keyword !='')
+    {
+      if($sqlWhere == ' ')
+        $sqlWhere .= 'festival_name LIKE "%'.$keyword.'%"';
+      else
+        $sqlWhere .= ' and festival_name LIKE "%'.$keyword.'%"';
+    }
+
+    if($sqlWhere == ' ')
+    {
+      $sql = 'select * from festival order by festival_id desc '.$sqlLimit;
+    }
+    else
+    {
+      $sql = 'select * from festival where '.$sqlWhere.'order by festival_id desc '.$sqlLimit;
+    }
+
+    $result = $db->query($sql);
+
         $resultNum = mysqli_num_rows($result);
         ?>
     <h3 class="fonta">total current : <?php echo $resultNum ?></h3>
@@ -178,15 +320,21 @@
 
     <?php
 
-        while($row = mysqli_fetch_assoc($result)) {
-        $f_title = $row['festival_name'];
-        $start = $row['start'];
-        $end = $row['end'];
-        $local_name = $row['local_name'];
-        $city = $row['city'];
-        $like = $row['like_count'];
-        $view = $row['view_count'];
+    while($row = mysqli_fetch_assoc($result)) {
 
+      $mid = $row['month_id'];
+      $sql = 'select * from period where month_id = '.$mid;
+      $result2 = $db->query($sql);
+      $row2 = $result2->fetch_assoc();
+      $start = $row2['start'];
+      $end = $row2['end'];
+      $content = $row['festival_content'];
+      $festname = $row['festival_name'];
+
+
+
+      $like = $row['like_count'];
+      $view = $row['view_count'];
         ?>
 
         <div class="col-4 mx-auto" >
@@ -195,9 +343,9 @@
                     <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"> <img src="<?php echo $row['thumbnail'] ?>" style="margin-bottom: -13px; margin-top: -13px; margin-left: -21px; width: 350px; height: 200px;"></a>
                 </div>
                 <div class="card-body font" style="height: 275px">
-                    <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><h4 class="text-center" style="height: 50px; font-size: 22px;"><?php echo $f_title ?></h4></a>
+                    <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><h4 class="text-center" style="height: 50px; font-size: 22px;"><?php echo $festname ?></h4></a>
                     <hr>
-                    <h5 class="font" style="font-size: 18px;"><span class="fa fa-map">&nbsp; <?php echo $local_name ?>&nbsp;<?php echo $city ?></span></h5>
+
                     <br>
                     <h6>시작날짜 : <?php echo $start ?></h6>
                     <h6>끝 날짜 : <?php echo $end ?></h6>
@@ -211,6 +359,13 @@
 
         <?php
             }
+            ?>
+            <p>
+              <div class = "paging">
+                <p>
+                <?php echo $paging?>
+              </div>
+              <?php
             ?>
 
     </div>

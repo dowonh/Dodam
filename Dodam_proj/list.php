@@ -328,7 +328,7 @@
             <div class = "box">
         		<div class = "col-sm-12"> <img class="img-thumbnail" src="<?php echo $row['thumbnail']?>" width="500" height="90"></img> </div> <p>
         		<div class = "col-sm-12">
-              <strong><a href="./show.php?id=<?php echo $row['festival_id']?>"><?php echo $row['festival_name']?></a></strong> <br><br>
+              <strong><a href="./show_gayeon.html?id=<?php echo $row['festival_id']?>"><?php echo $row['festival_name']?></a></strong> <br><br>
         		<div class = "marking"> 시작 날짜 :  <?php echo $start?></div>
         		<div class = "marking"> 종료 날짜 :  <?php echo $end?></div>
             </div>
