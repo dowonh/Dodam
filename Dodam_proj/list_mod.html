@@ -298,7 +298,9 @@
       if($sqlWhere == ' ')
         $sqlWhere .= 'festival_name LIKE "%'.$keyword.'%"';
       else
+      {
         $sqlWhere .= ' and festival_name LIKE "%'.$keyword.'%"';
+      }
     }
 
     if($sqlWhere == ' ')
@@ -311,11 +313,11 @@
     }
 
     $result = $db->query($sql);
-    $resultNum = mysqli_num_rows($result);
+    $resultN = mysqli_num_rows($result);
 
 
         ?>
-    <h3 class="fonta">total current : <?php echo $resultNum ?></h3>
+    <h3 class="fonta">total current : <?php echo $resultN ?></h3>
     <hr>
     <div class="row">
 

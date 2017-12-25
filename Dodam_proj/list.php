@@ -299,7 +299,9 @@
         		if($sqlWhere == ' ')
         			$sqlWhere .= 'festival_name LIKE "%'.$keyword.'%"';
         		else
+            {
         			$sqlWhere .= ' and festival_name LIKE "%'.$keyword.'%"';
+            }  
         	}
 
         	if($sqlWhere == ' ')
