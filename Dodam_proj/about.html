@@ -228,12 +228,12 @@
 
 
     <!-- Main Content -->
-  <div class="container" style="background-color: #491217; justify-content: center; margin-top: -50px;">
+  <div class="container" style="justify-content: center; margin-top: -50px;">
     <div class="row">
       <div class="col-lg-10 mx-auto">
-        <div id="Home" class="tabcontent" style="background-color: #002752;">
+        <div id="Home" class="tabcontent">
           <div class="container">
-            <h6 class="font" style="font-size: 22px;"> total recently view : <?php echo $count_view ?><br></h6>
+            <h6 class="font" style="font-size: 22px;"> total recently view : <?php echo $count_view ?></h6>
             <hr>
           </div>
           <br><br>
@@ -246,23 +246,29 @@
       while($row = mysqli_fetch_assoc($result)) {
            $thum = $row['thumbnail'];
            $name = $row['festival_name'];
+           $author = $row['view_guestID'];
+           $id = $row['festival_id'];
+           $datetime = $row['view_datetime'];
+           $total_comment = $row['total_comment'];
 
         ?>
           <h6 class="font" style="font-size: 18px"><span class="fa fa-heart" style="color: red"></span> <?php echo $row['like_count'] ?>
             &nbsp;<span class="fa fa-eye"></span> <?php echo $row['view_count']?></h6>
 
-          <div class="media mx-auto" style="background-color: #0b2e13; padding: 20px;" >
+          <div class="media mx-auto" style="padding: 20px;" >
             <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><img src="<?php echo $thum ?>" style="width: 240px; height: 170px;"></a>
-            <div class="media-body" style="background-color: #533f03; margin-left: 10px; height: 170px;">
-              <h4><a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><?php echo $name ?></a></h4><br><br>
-              <h5><?php echo $row['start'] ?><br></h5>
-              <h5><?php echo $row['end']?></h5>
+            <div class="media-body" style="margin-left: 10px; height: 170px;">
+              <h4 style="font-size: 20px;"><a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><?php echo $name ?> [<?php echo $total_comment ?>]</a></h4><br><br>
+              <h5 style="font-size: 17px;"><?php echo $row['start'] ?> ~ <?php echo $row['end'] ?></h5>
+              <hr>
+              <h5 class="font-italic" style="color: dimgrey; font-size: 15px;">Viewed Time <?php echo $datetime ?></h5>
             </div>
-            <form action="#" method="post" style="vertical-align: middle;">
-              <input type="hidden" name="id" value="<?php echo $row['festival_id'] ?>">
-              <a href="#"><i class="fa fa-close"></i></a>
-            </form>
 
+            <form action="delete_view.php" method="get" style="vertical-align: middle;">
+              <input type="hidden" name="userid" value="<?php echo $author ?>">
+              <input type="hidden" name="festid" value="<?php echo $id ?>">
+              <button class="fa fa-close" style="background-color: transparent; border-color: transparent;"></button>
+            </form>
           </div>
           <hr>
 
@@ -275,7 +281,7 @@
 
     <div class="row">
       <div class="col-lg-10 mx-auto">
-        <div id="News" class="tabcontent" style="background-color: #002752;">
+        <div id="News" class="tabcontent"">
           <div class="container">
             <h6 class="font" style="font-size: 22px;"> total My Like : <?php echo $count_like ?><br></h6>
             <hr>
@@ -290,21 +296,24 @@
       while($row = mysqli_fetch_assoc($result)) {
            $thum = $row['thumbnail'];
            $name = $row['festival_name'];
+           $datetime = $row['like_datetime'];
+           $total_comment = $row['total_comment'];
 
         ?>
           <h6 class="font" style="font-size: 18px"><span class="fa fa-heart" style="color: red"></span> <?php echo $row['like_count'] ?>
           &nbsp;<span class="fa fa-eye"></span> <?php echo $row['view_count']?></h6>
 
-          <div class="media mx-auto" style="background-color: #0b2e13; padding: 20px;" >
+          <div class="media mx-auto" style="padding: 20px;" >
             <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><img src="<?php echo $thum ?>" style="width: 240px; height: 170px;"></a>
-            <div class="media-body" style="background-color: #533f03; margin-left: 10px; height: 170px;">
-              <h4 style="font-size: 20px;"><a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><?php echo $name ?></a></h4><br><br>
-              <h5><?php echo $row['start'] ?><br></h5>
-              <h5><?php echo $row['end']?></h5>
+            <div class="media-body" style="margin-left: 10px; height: 170px;">
+              <h4 style="font-size: 20px;"><a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><?php echo $name ?> [<?php echo $total_comment?>] </a></h4><br><br>
+              <h5 style="font-size: 17px;"><?php echo $row['start'] ?> ~ <?php echo $row['end'] ?></h5>
+              <hr>
+              <h5 class="font-italic" style="color: dimgrey; font-size: 15px;">Liked Time <?php echo $datetime ?></h5>
           </div>
             <form action="like.php" method="post" style="vertical-align: middle;">
               <input type="hidden" name="id" value="<?php echo $row['festival_id'] ?>">
-              <button type="submit" class="btn btn-danger" style="width: 30px;"><span class="fa fa-heart-o" style="margin-left: -7px;"></span></button>
+              <button class="fa fa-heart" style="color: darkred; background-color: transparent; border-color: transparent;"></button>
             </form>
 
         </div>
@@ -320,9 +329,9 @@
     <!--3번째-->
     <div class="row">
       <div class="col-lg-10 mx-auto">
-        <div id="Contact" class="tabcontent" style="background-color: #002752;">
+        <div id="Contact" class="tabcontent">
           <div class="container">
-            <h6 class="font" style="font-size: 22px;"> total recently view : <?php echo $count_comment ?><br></h6>
+            <h6 class="font" style="font-size: 22px;"> total recently comment : <?php echo $count_comment ?><br></h6>
             <hr>
           </div>
           <br><br>
@@ -339,17 +348,18 @@
            $content = $row['comment'];
            $datetime = $row['comment_datetime'];
            $author = $row['comment_name'];
+           $total_comment = $row['total_comment'];
 
         ?>
           <h6 class="font" style="font-size: 18px"><span class="fa fa-heart" style="color: red"></span> <?php echo $row['like_count'] ?>
             &nbsp;<span class="fa fa-eye"></span> <?php echo $row['view_count']?></h6>
 
-          <div class="media mx-auto" style="background-color: #0b2e13; padding: 20px;" >
+          <div class="media mx-auto" style="padding: 20px;" >
             <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><img src="<?php echo $thum ?>" style="width: 240px; height: 170px;"></a>
 
-            <div class="media-body" style="background-color: #533f03; margin-left: 10px; height: 170px;">
-              <h4><a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><?php echo $name ?></a></h4><br>
-              <h5><?php echo $content ?><br><br></h5>
+            <div class="media-body" style="margin-left: 10px; height: 170px;">
+              <h4 style="font-size: 20px;"><a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><?php echo $name ?> [<?php echo $total_comment ?>]</a></h4><br>
+              <h5 style="font-size: 17px;"><?php echo $content ?><br><br><br></h5>
               <hr>
               <h5 class="font-italic" style="color: dimgrey; font-size: 15px;">Uploaded Time <?php echo $datetime ?></h5>
             </div>
@@ -358,7 +368,7 @@
               <input type="hidden" name="content" value="<?php echo $content ?>">
               <input type="hidden" name="userid" value="<?php echo $author ?>">
               <input type="hidden" name="festid" value="<?php echo $festid ?>">
-              <button class="fa fa-close"></button>
+              <button class="fa fa-close" style="background-color: transparent; border-color: transparent;"></button>
             </form>
 
           </div>
@@ -374,9 +384,14 @@
     <div class="row">
       <div class="col-lg-10 mx-auto">
             <div id="About" class="tabcontent">
-              <h3>About</h3>
-              <p>Who we are and what we do.</p>
-           </div>
+              <div class="row">
+              <div class="col-lg-5 mx-auto" style="background-color: dimgrey;">
+                sdfsdf
+              </div>
+              <div class="col-lg-5 mx-auto" style="background-color: goldenrod;">
+                dfdf
+              </div>
+              </div>
         </div>
     </div>
 

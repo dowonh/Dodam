@@ -20,24 +20,25 @@ if(!isset($_SESSION['login_user'])){
     }
 
     else {
+      $total = $_GET['total'];
+
+      if(
+
       $user = $_SESSION['login_user'];
       $author = $_GET['userid'];
+      $festid = $_GET['festid'];
 
       if($user == $author) {
         $author = $user;
-        $content = $_GET['content'];
         $festid = $_GET['festid'];
 
-        $sql = "SELECT * FROM comment WHERE festival_id = '$festid' AND comment = '$content' AND comment_name = '$author'";
+        $sql = "SELECT * FROM view WHERE view_festID = '$festid' AND view_guestID = '$author'";
         $result = mysqli_query($conn, $sql);
         $result = mysqli_num_rows($result);
 
         if($result) {
-            $sql_delete = "DELETE FROM comment WHERE festival_id = '$festid' AND comment = '$content' AND comment_name = '$author'";
+            $sql_delete = "DELETE FROM view WHERE view_festID = '$festid' AND view_guestID = '$author'";
             $result_delete = mysqli_query($conn, $sql_delete);
-
-            $sql_comment = "UPDATE festival SET total_comment = total_comment - 1 WHERE festival_id = '$festid'";
-            $result_comment = mysqli_query($conn, $sql_comment);
 
             $prevPage = $_SERVER['HTTP_REFERER'];
 
