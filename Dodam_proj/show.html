@@ -3,7 +3,7 @@
     $username = "hwadmin";
     $password = "1234";
     $dbname = "festivalhw";
-	$lodis = 0;
+   $lodis = 0;
 
     // Create connection
     $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -15,13 +15,28 @@
 
     session_start();
     if(!isset($_SESSION['login_user'])){
-		$lodis=0;
+      $lodis=0;
     }
 
     else {
           $user = $_SESSION['login_user'];
-		  $lodis=1;
+          $festID = $_GET['id'];
+        $lodis=1;
+            $datetime = date("Y-m-d H:i:s");
 
+        $sql = "SELECT * FROM view WHERE view_guestID = '$user' AND view_festID = '$festID'";
+        $result = mysqli_query($conn, $sql);
+        $present = mysqli_num_rows($result);
+
+        if(!$present) {
+          $sql_insert = "INSERT INTO view (view_guestID, view_festID, view_datetime) VALUES ('$user', '$festID', '$datetime')";
+          $result_insert = mysqli_query($conn, $sql_insert);
+            }
+
+           else {
+             $sql_update = "UPDATE view SET view_datetime = '$datetime' WHERE view_guestID = '$user' AND view_festID = '$festID'";
+             $result_update = mysqli_query($conn, $sql_update);
+            }
       }
 ?>
 
@@ -36,7 +51,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog - DoDam DoDam</title>
+    <title>Information - DoDam DoDam</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -166,16 +181,16 @@
 </style>
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('img/bg-masthead.jpg')">
-        <div class="overlay"></div>
-        <div class="container text-center">
-            <div class="row">
-                <div class="col-xl-9  mx-auto">
-                    <div class="post-heading" >
-                        <h2>aa</h2>
-                    </div>
+    <div class="overlay"></div>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-xl-9  mx-auto">
+                <div class="post-heading" >
+                    <h2>aa</h2>
                 </div>
             </div>
         </div>
+    </div>
     </form>
 </header>
 
@@ -184,14 +199,9 @@
 <div class="container">
     <div class="row">
         <?php
-	error_reporting(E_ALL);
-	ini_set("display_errors", 1);
-	require_once("dbconfig.php");
-?>
-        <?php
-	$id = $_GET['id'];
-	$sql = 'update festival set view_count = view_count + 1 where festival_id='.$id;
-	$db->query($sql);
+   $id = $_GET['id'];
+   $sql = 'update festival set view_count = view_count + 1 where festival_id='.$id;
+   $db->query($sql);
         $sql = 'select * from festival where festival_id='.$id;
         $result = $db->query($sql);
         $row = $result->fetch_assoc();
@@ -202,31 +212,20 @@
         $result = $db->query($sql);
         $row3 = $result->fetch_assoc();
 
-        // $image = $row['thumbnail'];
-        // echo '<img src ="'.$image.'"></image><br>';
-        // $name = $row['festival_name'];
-        // echo $name.'<br><br>';
-        // $content = $row['festival_content'];
-        // echo $content.'<br>';
-        // $homepage = $row['homepage'];
-        // echo '홈페이지 : '.$homepage.'<br><br>';
-        // echo '연락처  : '.$row2['phone_number'].'<br><br>';
-        // echo '장소   : '.$row2['local_name'].' '.$row2['city'].' '.$row2['detail'].'<br><br>';
-        // echo '기간   : '.$row3['start'].' ~ '.$row3['end'].'<br>';
         ?>
         <div class = "box">
             <div class = "col-sm-12">
                 <?php
-				$name = $row['festival_name'];
-				echo '<strong><h1><center>'.$name.'</center></h1></strong><hr color="#ccc" size="100" width="900"><br>';
+            $name = $row['festival_name'];
+            echo '<strong><h1><center>'.$name.'</center></h1></strong><hr color="#ccc" size="100" width="900"><br>';
                 $image = $row['thumbnail'];
                 echo '<center><img src ="'.$image.'" width="750"></image></center><br><p><hr color="black">';
                 ?>
                 <div class = "col-sm-12">
                     <ul>
                         <?php
-				$homepage = $row['homepage'];
-				echo '<li> <strong>홈페이지</strong> &ensp;'.$homepage.'</li><hr color="#ccc" size="100" >';
+            $homepage = $row['homepage'];
+            echo '<li> <strong>홈페이지</strong> &ensp;'.$homepage.'</li><hr color="#ccc" size="100" >';
                         echo '<li> <strong>연락처</strong> &ensp;'.$row2['phone_number'].'</li><hr color="#ccc" size="100" >';
                         echo '<li> <strong>주소 </strong>&ensp;'.$row2['local_name'].' '.$row2['city'].' '.$row2['detail'].'</li><hr color="#ccc" size="100">';
                         echo '<li> <strong>축제 기간 </strong>&ensp; '.$row3['start'].' ~ '.$row3['end'].'</li><hr color="#ccc" size="100" >';
@@ -235,9 +234,9 @@
                         echo '<li> <strong>조회수 </strong> &ensp; '.$row['view_count'].'</li><br>';
                         echo '<li> <strong>좋아요 </strong> &ensp; '.$row['like_count'].'</li><br>';
                         ?>
-                        <form action="like.php" method="get">
+                        <form action="like.php" method="post">
                             <input type="hidden" name="id" value="<?php echo $row['festival_id'] ?>">
-                            <button type="submit" class="btn">좋아요</button>
+                            <button type="submit" class="btn"><span class="fa fa-heart-o"></span></button>
                         </form>
                     </ul>
                     </li><hr color="#ccc" size="100" >
@@ -246,10 +245,10 @@
 
 
                     <?php
-				if($lodis == 1)
-				{
-					$sql = 'SELECT * FROM guest WHERE guest_ID = "'.$user.'"';
-					$rst = $db->query($sql);
+            if($lodis == 1)
+            {
+               $sql = 'SELECT * FROM guest WHERE guest_ID = "'.$user.'"';
+               $rst = $db->query($sql);
                     $rw = $rst->fetch_assoc();
                     $sql = 'SELECT count(*) as a from comment group by festival_id having festival_id='.$id;
                     $rst = $db->query($sql);
@@ -258,7 +257,7 @@
 
                     ?>
 
-                    <form action="comment.php" method="get">
+                    <form action="#" method="get">
 
                         <select class="form-control" name="point">
                             <option>0</option>
@@ -267,27 +266,28 @@
                             <option>3</option>
                             <option>4</option>
                             <option>5</option>
-                        </select> <p>
-                        <input type="hidden" name="name" value="<?php echo $rw['guest_ID'];?>">
+                        </select>
+                        <input type="hidden" name="name" value="<?php echo $rw['guest_ID']?>">
                         <input type="hidden" name="islogin" value="1">
-                        <input type="hidden" name="password" value="<?php echo $rw['guest_password'];?>">
-                        <input type="hidden" name="id" value="<?php echo $id;?>">
+                        <input type="hidden" name="password" value="<?php echo $rw['guest_password']?>">
+                        <input type="hidden" name="id" value="<?php echo $id ?>">
                         <input type="text" name="comment" size="85" />
-                        <input type="hidden" name="count" value="<?php echo $count;?>">
+                        <input type="hidden" name="count" value="<?php echo $count ?>">
+                        <input type="hidden" name="datetime" value="$datetime">
                         <button type="submit">댓글입력</button>
                     </form>
 
                     <?php
-				}
-				else
-				{
-					$sql = 'SELECT count(*) as a from comment group by festival_id having festival_id='.$id;
-					$rst = $db->query($sql);
+            }
+            else
+            {
+               $sql = 'SELECT count(*) as a from comment group by festival_id having festival_id='.$id;
+               $rst = $db->query($sql);
                     $rw2 = $rst->fetch_assoc();
                     $count = $rw2['a'];
                     ?>
 
-                    <form action="comment.php" method="get">
+                    <form action="#" method="get">
 
                         <select class="form-control" name="point">
                             <option>0</option>
@@ -309,8 +309,8 @@
 
 
                     <?php
-				}
-			?>
+            }
+         ?>
 
 
 
@@ -319,16 +319,16 @@
 
 
                     <?php
-				$sql = 'select * from comment where festival_id='.$id.' order by comment_number';
-				$res = $db->query($sql);
+            $sql = 'select * from comment where festival_id='.$id.' order by comment_number';
+            $res = $db->query($sql);
                     while($ro = $res->fetch_assoc())
                     {
                     ?>
                     </li><hr color="#ccc" size="100" >
                     <?php
-					echo $ro['comment'].' '.$ro['point'].' '.$ro['name'];
-				}
-			 ?>
+               echo $ro['comment'].' '.$ro['point'].' '.$ro['name'];
+            }
+          ?>
                 </div>
             </div>
         </div>

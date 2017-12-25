@@ -13,9 +13,8 @@
      }
 
     session_start();
-    if(!isset($_SESSION['login_user'])){
-        $url = 'login.php';
-        header("location: $url");
+    if(!isset($_SESSION['login_user'])) {
+          echo "<meta http-equiv='refresh' content='0; url=login.php'>";
     }
 
     else {
@@ -26,6 +25,20 @@
 
           if(!$result) $count_com = 0;
           else $count_com = $result;
+
+          $sql2 = "SELECT * FROM view WHERE view_guestID = '$user'";
+          $result2 = mysqli_query($conn, $sql2);
+          $result2 = mysqli_num_rows($result2);
+
+          if(!$result2) $count_view = 0;
+          else $count_view = $result2;
+
+          $sql3 = "SELECT * FROM heart WHERE like_guestID = '$user'";
+          $result3 = mysqli_query($conn, $sql3);
+          $result3 = mysqli_num_rows($result3);
+
+          if(!$result3) $count_like = 0;
+          else $count_like = $result3;
       }
 ?>
 <!DOCTYPE html>
@@ -104,9 +117,16 @@
     .tabcontent {
       color: rgba(17, 17, 17, 0.95);
       display: none;
-      padding: 100px 20px;
+      padding: 20px 20px;
       height: 100%;
     }
+    .font {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 0;
+      font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
   </style>
 
   <script>
@@ -181,7 +201,7 @@
             <div class="page-heading" style="height: 600px;">
                 <img src="../Dodam_proj/img/img_avatar1.png" class="rounded-circle" style="height: 250px; margin-top: -80px;"><br><br>
                 <h3><?php echo $user ?></h3><br>
-               <span class="subheading">총 게시글 : <?php echo $count_com ?>개<br><br>총 댓글 : 개</span>
+               <span class="subheading">Total Post : <?php echo $count_com ?>개</span>
           </div>
         </div>
       </div>
@@ -201,30 +221,92 @@
 
 
     <!-- Main Content -->
-  <div class="container" style="background-color: #491217; justify-content: center;">
+  <div class="container" style="background-color: #491217; justify-content: center; margin-top: -50px;">
     <div class="row">
       <div class="col-lg-10 mx-auto">
         <div id="Home" class="tabcontent" style="background-color: #002752;">
+          <div class="container">
+            <h6 class="font" style="font-size: 22px;"> total recently view : <?php echo $count_view ?><br></h6>
+            <hr>
+          </div>
+          <br><br>
+          <?php
+
+      $sql = "SELECT * from festival, view, period WHERE festival.festival_id = view.view_festID and festival.month_id = period.month_id and view.view_guestID = '$user' order by view.view_datetime desc";
+      $result = mysqli_query($conn, $sql);
+      $result_num = mysqli_num_rows($result);
+
+      while($row = mysqli_fetch_assoc($result)) {
+           $thum = $row['thumbnail'];
+           $name = $row['festival_name'];
+
+        ?>
+          <h6 class="font" style="font-size: 18px"><span class="fa fa-heart" style="color: red"></span> <?php echo $row['like_count'] ?>
+            &nbsp;<span class="fa fa-eye"></span> <?php echo $row['view_count']?></h6>
           <div class="media mx-auto" style="background-color: #0b2e13; padding: 20px;" >
-            <a href="#"><img src="../Dodam_proj/img/christmas-tree-2561872_960_720.jpg" style="width: 250px;"></a>
-            <div class="media-body" style="background-color: #533f03">
-              <h1>드디어!</h1>
-              <h3>성공입니다.</h3>
+            <a href="./show.html?id=<?php echo $row['festival_id'] ?>"><img src="<?php echo $thum ?>" style="width: 240px; height: 170px;"></a>
+            <div class="media-body" style="background-color: #533f03; margin-left: 10px; height: 170px;">
+              <h4><a href="./show.html?id=<?php echo $row['festival_id'] ?>"><?php echo $name ?></a></h4><br><br>
+              <h5><?php echo $row['start'] ?><br></h5>
+              <h5><?php echo $row['end']?></h5>
             </div>
-            <div class="media-body" style="background-color: #20c997">
-            </div>
-            <button class="btn btn-warning">sdf</button>
+            <form action="like.php" method="post" style="vertical-align: middle;">
+              <input type="hidden" name="id" value="<?php echo $row['festival_id'] ?>">
+              <button type="submit" class="btn btn-danger">unlike</button>
+            </form>
+
           </div>
           <hr>
+
+          <?php
+        }
+        ?>
         </div>
       </div>
     </div>
-        <hr>
 
-            <div id="News" class="tabcontent">
-              <h3>News</h3>
-               <p>Some news this fine day!</p>
-             </div>
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <div id="News" class="tabcontent" style="background-color: #002752;">
+          <div class="container">
+            <h6 class="font" style="font-size: 22px;"> total My Like : <?php echo $count_like ?><br></h6>
+            <hr>
+          </div>
+          <br><br>
+          <?php
+
+      $sql = "SELECT * from festival, heart, period WHERE festival.festival_id = heart.like_festID and festival.month_id = period.month_id and heart.like_guestID = '$user' order by heart.like_datetime desc";
+      $result = mysqli_query($conn, $sql);
+      $result_num = mysqli_num_rows($result);
+
+      while($row = mysqli_fetch_assoc($result)) {
+           $thum = $row['thumbnail'];
+           $name = $row['festival_name'];
+
+        ?>
+          <h6 class="font" style="font-size: 18px"><span class="fa fa-heart" style="color: red"></span> <?php echo $row['like_count'] ?>
+          &nbsp;<span class="fa fa-eye"></span> <?php echo $row['view_count']?></h6>
+          <div class="media mx-auto" style="background-color: #0b2e13; padding: 20px;" >
+            <a href="./show.html?id=<?php echo $row['festival_id'] ?>"><img src="<?php echo $thum ?>" style="width: 240px; height: 170px;"></a>
+            <div class="media-body" style="background-color: #533f03; margin-left: 10px; height: 170px;">
+              <h4><a href="./show.html?id=<?php echo $row['festival_id'] ?>"><?php echo $name ?></a></h4><br><br>
+              <h5><?php echo $row['start'] ?><br></h5>
+              <h5><?php echo $row['end']?></h5>
+          </div>
+            <form action="like.php" method="post" style="vertical-align: middle;">
+              <input type="hidden" name="id" value="<?php echo $row['festival_id'] ?>">
+              <button type="submit" class="btn btn-danger">unlike</button>
+            </form>
+
+        </div>
+          <hr>
+
+          <?php
+        }
+        ?>
+      </div>
+    </div>
+    </div>
 
             <div id="Contact" class="tabcontent">
                 <h3>Contact</h3>

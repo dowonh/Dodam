@@ -14,8 +14,7 @@
 
     session_start();
     if(!isset($_SESSION['login_user'])){
-        $url = 'login.php';
-        header("location: $url");
+         echo "<meta http-equiv='refresh' content='0; url=login.php'>";
     }
 
     else {
