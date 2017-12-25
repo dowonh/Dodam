@@ -185,6 +185,8 @@
         $end = $row['end'];
         $local_name = $row['local_name'];
         $city = $row['city'];
+        $like = $row['like_count'];
+        $view = $row['view_count'];
 
         ?>
 
@@ -193,13 +195,16 @@
                 <div class="card-header font" style="justify-content: center;">
                     <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"> <img src="<?php echo $row['thumbnail'] ?>" style="margin-bottom: -13px; margin-top: -13px; margin-left: -21px; width: 350px; height: 200px;"></a>
                 </div>
-                <div class="card-body font" style="height: 245px">
+                <div class="card-body font" style="height: 275px">
                     <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><h4 class="text-center" style="height: 50px; font-size: 22px;"><?php echo $f_title ?></h4></a>
                     <hr>
                     <h5 class="font" style="font-size: 18px;"><span class="fa fa-map">&nbsp; <?php echo $local_name ?>&nbsp;<?php echo $city ?></span></h5>
-                    <br><br>
+                    <br>
                     <h6>시작날짜 : <?php echo $start ?></h6>
                     <h6>끝 날짜 : <?php echo $end ?></h6>
+                    <hr>
+                    <h5 class="text-left"><span class="fa fa-heart"  style="color: darkred">&nbsp;<?php echo $like?></span> &nbsp; &nbsp; <span class="fa fa-eye">&nbsp;<?php echo $view?>
+                    </span></h5>
                 </div>
             </div>
             <br>
