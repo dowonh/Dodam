@@ -196,8 +196,8 @@
                     </div>
                     <div class="card-body">
                         <a href="./show.php?id=<?php echo $row['festival_id']?>"><h3><?php echo $f_title ?></h3></a>
-                        <p>시작날짜 : <?php echo $start ?><br></p>
-                        <p>끝 날짜 : <?php echo $end ?></p>
+                        <!-- <p>시작날짜 : <?php echo $start ?><br></p>
+                        <p>끝 날짜 : <?php echo $end ?></p> -->
                     </div>
                 </div>
                 <hr>
