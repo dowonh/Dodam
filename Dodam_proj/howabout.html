@@ -1,0 +1,462 @@
+<?php
+    $servername = "27.116.81.3";
+    $username = "hwadmin";
+    $password = "1234";
+    $dbname = "festivalhw";
+
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
+
+    // Check connection
+    if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+     }
+
+     session_start();
+    if(!isset($_SESSION['login_user'])){
+        $lodis = 0;
+    }
+
+    else {
+              $user = $_SESSION['login_user'];
+            $lodis = 1;
+
+            $sql = 'SELECT * FROM festival, period, locale WHERE festival.festival_id = period.month_id AND
+            festival.festival_id = locale.local_id AND festival_name like "%최우수%" order by start desc';
+            $result = mysqli_query($conn, $sql);
+            $resultNum = mysqli_num_rows($result);
+
+            $sql2 = 'SELECT * FROM festival, period, locale WHERE festival.festival_id = period.month_id AND
+            festival.festival_id = locale.local_id AND festival_name like "%[우수%" order by start desc';
+            $result2 = mysqli_query($conn, $sql2);
+            $resultNum2 = mysqli_num_rows($result2);
+
+            $sql3 = 'SELECT * FROM festival, period, locale WHERE festival.festival_id = period.month_id AND
+            festival.festival_id = locale.local_id AND festival_name like "%유망%" order by start desc';
+            $result3 = mysqli_query($conn, $sql3);
+            $resultNum3 = mysqli_num_rows($result3);
+    }
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Blog - DoDam DoDam</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+
+</head>
+
+<style type="text/css">
+
+    input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: white;
+        opacity: 1;
+    }
+
+    input[type=text_top_search] {
+        width: 100px;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+    }
+
+    /* When the input field gets focus, change its width to 100% */
+    input[type=text_top_search]:focus {
+        width: 250px;
+    }
+
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial;
+    }
+
+    /* Style tab links */
+    .tablink {
+        background-color: transparent;
+        color: antiquewhite;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        font-size: 14px;
+        width: 33%;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-radius: 0;
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    }
+
+    .tablink:hover {
+        background-color: #777;
+    }
+
+    /* Style the tab content (and add height:100% for full page content) */
+    .tabcontent {
+        color: rgba(17, 17, 17, 0.95);
+        display: none;
+        padding: 20px 20px;
+        height: 100%;
+    }
+    .font {
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-radius: 0;
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+    .fonta {
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-radius: 0;
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+</style>
+
+<script>
+    function openPage(pageName, elmnt, color) {
+        // Hide all elements with class="tabcontent" by default */
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Remove the background color of all tablinks/buttons
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+        }
+
+        // Show the specific tab content
+        document.getElementById(pageName).style.display = "block";
+
+        // Add the specific color to the button used to open the tab content
+        elmnt.style.backgroundColor = color;
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+</script>
+
+<body>
+<?php
+    if($lodis == 1) {
+    ?>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">DoDam DoDam</a>
+        <button class="navbar-toggler navbar-toggler-right ml-md-auto" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="logout.php">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a href="blog.html">Community</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html"><?php echo $user?>님 :)</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<?php
+    }
+
+    else
+    {
+
+    ?>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">DoDam DoDam</a>
+        <button class="navbar-toggler navbar-toggler-right ml-md-auto" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="login.html">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="register.html">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a href="blog.html">Community</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<?php
+    }
+ ?>
+
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('img/christmas-tree-2561872_960_720.jpg')">
+    <div class="overlay"></div>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="page-heading">
+
+                    <span class="subheading"><?php echo $user?> 님 이런 축제 정보는 어떠세요?</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="justify-content: center;">
+        <div class="row">
+            <div class="col-lg-12 mx-auto">
+                <button class="tablink" onclick="openPage('Home', this, 'grey')">the best festival</button>
+                <button class="tablink" onclick="openPage('News', this, 'grey')" id="defaultOpen">good festival</button>
+                <button class="tablink" onclick="openPage('Contact', this, 'grey')">bright festival</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- Main Content -->
+<div class="container" style="justify-content: center; margin-top: -50px;">
+    <!--최우수 축제-->
+    <div class="row">
+        <div class="col-lg-12 mx-auto">
+            <div id="Home" class="tabcontent">
+                <div class="container">
+                    <h6 class="font" style="font-size: 22px;"> total Best fesival : <?php echo $resultNum ?></h6>
+                    <hr>
+                </div>
+                <div class="row">
+
+                    <?php
+
+        while($row = mysqli_fetch_assoc($result)) {
+        $f_title = $row['festival_name'];
+        $start = $row['start'];
+        $end = $row['end'];
+        $local_name = $row['local_name'];
+        $city = $row['city'];
+        $like = $row['like_count'];
+        $view = $row['view_count'];
+        $total_comment = $row['total_comment'];
+
+        ?>
+                    <div class="col-4" >
+                        <div class="card">
+                            <div class="card-header font" style="justify-content: center;">
+                                <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"> <img src="<?php echo $row['thumbnail'] ?>" style="margin-bottom: -13px; margin-top: -13px; margin-left: -21px; width: 336px; height: 200px;"></a>
+                            </div>
+                            <div class="card-body fonta" style="height: 275px">
+                                <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><h4 class="text-center" style="height: 50px; font-size: 20px;"><?php echo $f_title ?> [<?php echo $total_comment ?>]</h4></a>
+                                <hr>
+                                <h5 class="fonta" style="font-size: 17px;"><span class="fa fa-map">&nbsp; <?php echo $local_name ?>&nbsp;<?php echo $city ?></span></h5>
+                                <br>
+                                <h6 class="fonta" style="font-size: 15px;">시작날짜 : <?php echo $start ?></h6>
+                                <h6 class="fonta" style="font-size: 15px;">끝 날짜 : <?php echo $end ?></h6>
+                                <hr>
+                                <h5 class="text-left fonta" style="font-size: 20px"><span class="fa fa-heart"  style="color: darkred">&nbsp;<?php echo $like?></span> &nbsp; &nbsp; <span class="fa fa-eye">&nbsp;<?php echo $view?>
+                    </span></h5>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+
+                    <?php
+            }
+            ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--우수 축제-->
+    <div class="row">
+        <div class="col-lg-12 mx-auto">
+            <div id="News" class="tabcontent">
+                <div class="container">
+                    <h6 class="font" style="font-size: 22px;"> total Good fesival : <?php echo $resultNum2 ?></h6>
+                    <hr>
+                </div>
+                <div class="row">
+
+                    <?php
+
+        while($row = mysqli_fetch_assoc($result2)) {
+        $f_title = $row['festival_name'];
+        $start = $row['start'];
+        $end = $row['end'];
+        $local_name = $row['local_name'];
+        $city = $row['city'];
+        $like = $row['like_count'];
+        $view = $row['view_count'];
+        $total_comment = $row['total_comment'];
+
+        ?>
+                    <div class="col-4" >
+                        <div class="card">
+                            <div class="card-header font" style="justify-content: center;">
+                                <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"> <img src="<?php echo $row['thumbnail'] ?>" style="margin-bottom: -13px; margin-top: -13px; margin-left: -21px; width: 336px; height: 200px;"></a>
+                            </div>
+                            <div class="card-body fonta" style="height: 275px">
+                                <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><h4 class="text-center" style="height: 50px; font-size: 20px;"><?php echo $f_title ?> [<?php echo $total_comment ?>]</h4></a>
+                                <hr>
+                                <h5 class="fonta" style="font-size: 17px;"><span class="fa fa-map">&nbsp; <?php echo $local_name ?>&nbsp;<?php echo $city ?></span></h5>
+                                <br>
+                                <h6 class="fonta" style="font-size: 15px;">시작날짜 : <?php echo $start ?></h6>
+                                <h6 class="fonta" style="font-size: 15px;">끝 날짜 : <?php echo $end ?></h6>
+                                <hr>
+                                <h5 class="text-left fonta" style="font-size: 20px"><span class="fa fa-heart"  style="color: darkred">&nbsp;<?php echo $like?></span> &nbsp; &nbsp; <span class="fa fa-eye">&nbsp;<?php echo $view?>
+                    </span></h5>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+
+                    <?php
+            }
+            ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--유망 축제-->
+    <div class="row">
+        <div class="col-lg-12 mx-auto">
+            <div id="Contact" class="tabcontent">
+                <div class="container">
+                    <h6 class="font" style="font-size: 22px;"> total Bright fesival : <?php echo $resultNum3 ?></h6>
+                    <hr>
+                </div>
+                <div class="row">
+
+                    <?php
+
+        while($row = mysqli_fetch_assoc($result3)) {
+        $f_title = $row['festival_name'];
+        $start = $row['start'];
+        $end = $row['end'];
+        $local_name = $row['local_name'];
+        $city = $row['city'];
+        $like = $row['like_count'];
+        $view = $row['view_count'];
+        $total_comment = $row['total_comment'];
+
+        ?>
+                    <div class="col-4" >
+                        <div class="card">
+                            <div class="card-header font" style="justify-content: center;">
+                                <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"> <img src="<?php echo $row['thumbnail'] ?>" style="margin-bottom: -13px; margin-top: -13px; margin-left: -21px; width: 336px; height: 200px;"></a>
+                            </div>
+                            <div class="card-body fonta" style="height: 275px">
+                                <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><h4 class="text-center" style="height: 50px; font-size: 20px;"><?php echo $f_title ?> [<?php echo $total_comment ?>]</h4></a>
+                                <hr>
+                                <h5 class="fonta" style="font-size: 17px;"><span class="fa fa-map">&nbsp; <?php echo $local_name ?>&nbsp;<?php echo $city ?></span></h5>
+                                <br>
+                                <h6 class="fonta" style="font-size: 15px;">시작날짜 : <?php echo $start ?></h6>
+                                <h6 class="fonta" style="font-size: 15px;">끝 날짜 : <?php echo $end ?></h6>
+                                <hr>
+                                <h5 class="text-left fonta" style="font-size: 20px"><span class="fa fa-heart"  style="color: darkred">&nbsp;<?php echo $like?></span> &nbsp; &nbsp; <span class="fa fa-eye">&nbsp;<?php echo $view?>
+                    </span></h5>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+
+                    <?php
+            }
+            ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; Your Website 2017</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
