@@ -39,6 +39,13 @@
 
           if(!$result3) $count_like = 0;
           else $count_like = $result3;
+
+          $sql4 = "SELECT * FROM comment WHERE comment_name = '$user'";
+          $result4 = mysqli_query($conn, $sql4);
+          $result4 = mysqli_num_rows($result4);
+
+          if(!$result4) $count_comment = 0;
+          else $count_comment = $result4;
       }
 ?>
 <!DOCTYPE html>
@@ -243,10 +250,11 @@
         ?>
           <h6 class="font" style="font-size: 18px"><span class="fa fa-heart" style="color: red"></span> <?php echo $row['like_count'] ?>
             &nbsp;<span class="fa fa-eye"></span> <?php echo $row['view_count']?></h6>
+
           <div class="media mx-auto" style="background-color: #0b2e13; padding: 20px;" >
-            <a href="./show.html?id=<?php echo $row['festival_id'] ?>"><img src="<?php echo $thum ?>" style="width: 240px; height: 170px;"></a>
+            <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><img src="<?php echo $thum ?>" style="width: 240px; height: 170px;"></a>
             <div class="media-body" style="background-color: #533f03; margin-left: 10px; height: 170px;">
-              <h4><a href="./show.html?id=<?php echo $row['festival_id'] ?>"><?php echo $name ?></a></h4><br><br>
+              <h4><a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><?php echo $name ?></a></h4><br><br>
               <h5><?php echo $row['start'] ?><br></h5>
               <h5><?php echo $row['end']?></h5>
             </div>
@@ -286,10 +294,11 @@
         ?>
           <h6 class="font" style="font-size: 18px"><span class="fa fa-heart" style="color: red"></span> <?php echo $row['like_count'] ?>
           &nbsp;<span class="fa fa-eye"></span> <?php echo $row['view_count']?></h6>
+
           <div class="media mx-auto" style="background-color: #0b2e13; padding: 20px;" >
-            <a href="./show.html?id=<?php echo $row['festival_id'] ?>"><img src="<?php echo $thum ?>" style="width: 240px; height: 170px;"></a>
+            <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><img src="<?php echo $thum ?>" style="width: 240px; height: 170px;"></a>
             <div class="media-body" style="background-color: #533f03; margin-left: 10px; height: 170px;">
-              <h4 style="font-size: 20px;"><a href="./show.html?id=<?php echo $row['festival_id'] ?>"><?php echo $name ?></a></h4><br><br>
+              <h4 style="font-size: 20px;"><a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><?php echo $name ?></a></h4><br><br>
               <h5><?php echo $row['start'] ?><br></h5>
               <h5><?php echo $row['end']?></h5>
           </div>
@@ -308,12 +317,60 @@
     </div>
     </div>
 
-            <div id="Contact" class="tabcontent">
-                <h3>Contact</h3>
-             <p>Get in touch, or swing by for a cup of coffee.</p>
+    <!--3번째-->
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <div id="Contact" class="tabcontent" style="background-color: #002752;">
+          <div class="container">
+            <h6 class="font" style="font-size: 22px;"> total recently view : <?php echo $count_comment ?><br></h6>
+            <hr>
+          </div>
+          <br><br>
+          <?php
+
+      $sql = "SELECT * from festival, comment WHERE festival.festival_id = comment.festival_id and comment.comment_name = '$user' order by comment.comment_datetime desc";
+      $result = mysqli_query($conn, $sql);
+      $result_num = mysqli_num_rows($result);
+
+      while($row = mysqli_fetch_assoc($result)) {
+           $thum = $row['thumbnail'];
+           $name = $row['festival_name'];
+           $festid = $row['festival_id'];
+           $content = $row['comment'];
+           $datetime = $row['comment_datetime'];
+           $author = $row['comment_name'];
+
+        ?>
+          <h6 class="font" style="font-size: 18px"><span class="fa fa-heart" style="color: red"></span> <?php echo $row['like_count'] ?>
+            &nbsp;<span class="fa fa-eye"></span> <?php echo $row['view_count']?></h6>
+
+          <div class="media mx-auto" style="background-color: #0b2e13; padding: 20px;" >
+            <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><img src="<?php echo $thum ?>" style="width: 240px; height: 170px;"></a>
+
+            <div class="media-body" style="background-color: #533f03; margin-left: 10px; height: 170px;">
+              <h4><a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><?php echo $name ?></a></h4><br>
+              <h5><?php echo $content ?><br><br></h5>
+              <hr>
+              <h5 class="font-italic" style="color: dimgrey; font-size: 15px;">Uploaded Time <?php echo $datetime ?></h5>
             </div>
 
+            <form action="delete.php" method="get" style="vertical-align: middle;">
+              <input type="hidden" name="content" value="<?php echo $content ?>">
+              <input type="hidden" name="userid" value="<?php echo $author ?>">
+              <input type="hidden" name="festid" value="<?php echo $festid ?>">
+              <button class="fa fa-close"></button>
+            </form>
 
+          </div>
+          <hr>
+          <?php
+        }
+        ?>
+        </div>
+      </div>
+    </div>
+
+    <!--4번째-->
     <div class="row">
       <div class="col-lg-10 mx-auto">
             <div id="About" class="tabcontent">

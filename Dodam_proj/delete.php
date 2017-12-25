@@ -16,14 +16,34 @@ if (!$conn) {
 session_start();
 
 if(!isset($_SESSION['login_user'])){
-        $url = 'login.php';
-        header("location: $url");
+        echo "<meta http-equiv='refresh' content='0; url=login.php'>";
     }
 
-    else
+    else {
       $user = $_SESSION['login_user'];
+      $author = $_GET['userid'];
 
+      if($user == $author) {
+        $author = $user;
+        $content = $_GET['content'];
+        $festid = $_GET['festid'];
 
+        $sql = "SELECT * FROM comment WHERE festival_id = '$festid' AND comment = '$content' AND comment_name = '$author'";
+        $result = mysqli_query($conn, $sql);
+        $result = mysqli_num_rows($result);
 
+        if($result) {
+            $sql_delete = "DELETE FROM comment WHERE festival_id = '$festid' AND comment = '$content' AND comment_name = '$author'";
+            $result_delete = mysqli_query($conn, $sql_delete);
 
+            $prevPage = $_SERVER['HTTP_REFERER'];
+
+            header('location:'.$prevPage);
+        }
+
+        else {
+            echo "Fail";
+        }
+      }
+    }
 ?>
