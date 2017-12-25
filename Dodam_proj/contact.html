@@ -20,6 +20,7 @@
     else {
           $user = $_SESSION['login_user'];
 
+
       }
 ?>
 
@@ -49,13 +50,6 @@
   </head>
   <style type="text/css">
 
-    input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: white;
-      opacity: 1;
-    }
-
-
-
     input[type=text_top_search] {
       width: 100px;
       -webkit-transition: width 0.4s ease-in-out;
@@ -66,6 +60,16 @@
     input[type=text_top_search]:focus {
       width: 250px;
     }
+
+    .font {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 0;
+      font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+
   </style>
 
   <body>
@@ -113,7 +117,7 @@
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="page-heading">
               <h1>FootPrint</h1>
-              <span class="subheading">당신의 발자취를 남겨보세요 :)</span>
+              <span class="subheading">Question & Answer</span>
             </div>
           </div>
         </div>
@@ -123,9 +127,11 @@
     <!-- Main Content -->
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
+      <div class="col-lg-7 mx-auto">
+        <h2>Question :)</h2>
+        <hr>
         <form class="container" action="footprint.php" method="post">
-          <input type="text" class="form-control" name="fp" placeholder="Write" style="height: 70px" required> <br>
+          <input type="text" class="form-control font" name="fp" placeholder="Question Anything !" style="height: 70px" required> <br>
         </form>
         <?php
 
@@ -139,16 +145,25 @@
 
         ?>
           <div class="container mx-auto">
-            <div class="media" style="background-color: black;"><br>
-              <a href="#"><img src="../Dodam_proj/img/img_avatar1.png" class="rounded-circle" style="width:100px"></a>
-                <div class="media-body" style="margin-left: 20px; background-color: grey;">
-                  <a href="#"><h4 class="media-heading"><?php echo $author ?></h4></a>
-                  <p><?php echo $content?></p>
+            <div class="media">
+              <a href="#"><img src="../Dodam_proj/img/img_avatar1.png" class="rounded-circle" style="width:100px; height: 100px;"></a>
+
+                <div class="media-body" style="margin-left: 20px; height: 100px;"><br>
+                  <div class="container" style="height: 40px;">
+                  <h4 style="font-size: 20px;"><a href="./contact.html?q_NUM=<?php echo $row['fp_NUM'] ?>"><?php echo $content?> [<?php echo $row['fp_comment']?>]</a></h4>
+                  </div>
+
+                  <div class="container" style="margin-bottom: -20px;">
+                  <h6 class="font-italic" style="color: dimgrey; font-size: 15px;">Posted By
+                    <a href="#"> <?php echo $author?></a>, <?php echo $datetime ?></h6>
+                  </div>
                 </div>
-              <?php echo $datetime ?><br>
-              <form action="#" style="background-color: #20c997">
-                <button class="btn btn-danger">delete</button>
+              <form action="delete_q.php" method="get" style="vertical-align: middle;">
+                <input type="hidden" name="userid" value="<?php echo $author ?>">
+                <input type="hidden" name="content" value="<?php echo $content ?>">
+                <button class="fa fa-close" style="color: #32383e; background-color: transparent; border-color: transparent;"></button>
               </form>
+
             </div>
 
           </div>
@@ -157,6 +172,76 @@
             }
             ?>
        </div>
+
+      <!--코멘트 창 출력-->
+      <div class="col-lg-5 mx-auto">
+        <div class="container font">
+          <?php
+
+                $q_NUM = $_GET['q_NUM'];
+
+
+                $sql = "SELECT * FROM answer WHERE answer_fpNUM = '$q_NUM'";
+                $result = mysqli_query($conn, $sql);
+                $num = mysqli_num_rows($result);
+
+                ?>
+          <h2>comment [<?php echo $num?>]</h2>
+          <hr>
+        </div>
+
+        <div class="container">
+          <?php
+                $sql = "SELECT * FROM answer WHERE answer_fpNUM = '$q_NUM' order by answer_datetime desc";
+                $result = mysqli_query($conn, $sql);
+
+                while($row = mysqli_fetch_assoc($result)) {
+                      $author = $row['answer_guestID'];
+            ?>
+          <div class="media" style="margin-left: -15px; margin-right: -15px;">
+            <a href="#"><img src="../Dodam_proj/img/img_avatar1.png" class="rounded-circle" style="width: 70px; height: 70px;"> </a>
+            <div class="media-body" style="padding: 10px; height: 70px">
+              <h5><?php echo $row['answer_content'] ?><br><br></h5>
+              <h6 class="font-italic" style=" color: dimgrey; font-size: 13px">Commented by
+                <a href="#"><?php echo $author ?></a>
+                <?php echo $row['answer_datetime']?>
+              </h6>
+            </div>
+            <form action="delete_a.php" method="get" style="vertical-align: middle;">
+              <input type="hidden" name="content" value="<?php echo $row['answer_content'] ?>">
+              <input type="hidden" name="userid" value="<?php echo $row['answer_guestID'] ?>">
+              <input type="hidden" name="q_id" value="<?php echo $q_NUM ?>">
+              <button class="fa fa-close" onclick="c_delete()" style="background-color: transparent; border-color: transparent;"></button>
+              <script>
+                  function c_delete() {
+                      alert("COMMENT를 삭제하였습니다!");
+                  }
+              </script>
+            </form>
+          </div>
+          <hr>
+          <div style="height: 8px;"></div>
+          <?php
+            }
+            ?>
+
+        </div>
+        <hr>
+
+        <div class="container">
+          <form action="qna.php" method="get">
+            <input class="font" type="text" name="com" placeholder="Comment" style="width: 319px; height: 59px; margin-top: 2px; padding-left: 10px;">
+            <input type="hidden" name="q_id" value="<?php echo $_GET['q_NUM'] ?>">
+            <input type="hidden" name="userid" value="<?php echo $user?>">
+            <button class="btn btn-danger text-center" onclick="c_comment()" type="submit" style="width: 90px;  height: 59px; margin-bottom: 6px; padding: 5px">send</button>
+            <script>
+                function c_comment() {
+                    alert("COMMENT를 작성하였습니다!");
+                }
+            </script>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 
