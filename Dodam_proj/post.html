@@ -1,3 +1,46 @@
+<?php
+    $servername = "27.116.81.3";
+    $username = "hwadmin";
+    $password = "1234";
+    $dbname = "festivalhw";
+
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
+
+    // Check connection
+    if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+     }
+
+    session_start();
+    if(!isset($_SESSION['login_user'])){
+       echo "<meta http-equiv='refresh' content='0; url=login.php'>";
+    }
+
+    else {
+          $user = $_SESSION['login_user'];
+
+          $festid = $_GET['id'];
+          $comid = $_GET['comid'];
+
+          $sql_fest = "SELECT * FROM festival WHERE festival_id = '$festid'";
+          $result_fest = mysqli_query($conn, $sql_fest);
+          $row_fest = mysqli_fetch_assoc($result_fest);
+
+          $sql_period = "SELECT * FROM period WHERE month_id = '$festid'";
+          $result_period = mysqli_query($conn, $sql_period);
+          $row_period = mysqli_fetch_assoc($result_period);
+
+          $sql_local = "SELECT * FROM locale WHERE local_id = '$festid'";
+          $result_local = mysqli_query($conn, $sql_local);
+          $row_local = mysqli_fetch_assoc($result_local);
+
+          $sql = "SELECT * FROM community1 WHERE com_NUM = '$comid'";
+          $result = mysqli_query($conn, $sql);
+          $row_com = mysqli_fetch_assoc($result);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,24 +66,16 @@
 
   </head>
   <style type="text/css">
+    .font {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 0;
+      font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
 
-    input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: white;
-      opacity: 1;
-    }
 
 
-
-    input[type=text_top_search] {
-      width: 100px;
-      -webkit-transition: width 0.4s ease-in-out;
-      transition: width 0.4s ease-in-out;
-    }
-
-    /* When the input field gets focus, change its width to 100% */
-    input[type=text_top_search]:focus {
-      width: 250px;
-    }
   </style>
 
   <body>
@@ -53,28 +88,10 @@
         Menu
         <i class="fa fa-bars"></i>
       </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav m-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="blog.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">Recently</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="post.html">Sample Post</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contact.html">Contact</a>
-          </li>
-        </ul>
-      </div>
-      <form class="navbar-nav" action="/action_page.php">
-        <input class="form-control" type="text_top_search" placeholder="Search">
-      </form>
+
       <form class="navbar-nav">
         <li class="nav-item">
-          <a href="logout.php">Logout</a>
+          <a href="blog.html">Previous</a>
         </li>
       </form>
     </div>
@@ -83,15 +100,15 @@
     <!-- Page Header -->
     <header class="masthead" style="background-image: url('img/post-bg.jpg')">
       <div class="overlay"></div>
-      <div class="container">
+      <div class="container text-center">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="post-heading">
-              <h1>Man must explore, and this is exploration at its greatest</h1>
-              <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
+              <h1><?php echo $row_com['com_title']?><br><br></h1>
+              <a href ="./show_gayeon.html?id=<?php echo $row_fest['festival_id']?>"><h2 class="subheading" style="color: white"><?php echo $row_fest['festival_name']?></h2></a>
               <span class="meta">Posted by
-                <a href="#">Start Bootstrap</a>
-                on August 24, 2017</span>
+                <a href="#"><?php echo $row_com['com_author']?></a>
+                <?php echo $row_com['com_datetime']?> </span>
             </div>
           </div>
         </div>
@@ -99,52 +116,103 @@
     </header>
 
     <!-- Post Content -->
-    <article>
-      <div class="container">
+
+  <!--정보 폼 시작-->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 mx-auto">
         <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <p>Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe, a round earth in which all the directions eventually meet, in which there is no center because every point, or none, is center — an equal earth which all men occupy as equals. The airman's earth, if free men make it, will be truly round: a globe in practice, not in theory.</p>
-
-            <p>Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science. The early warnings about technological dangers also come from science.</p>
-
-            <p>What was most significant about the lunar voyage was not that man set foot on the Moon but that they set eye on the earth.</p>
-
-            <p>A Chinese tale tells of some men sent to harm a young girl who, upon seeing her beauty, become her protectors rather than her violators. That's how I felt seeing the Earth for the first time. I could not help but love and cherish her.</p>
-
-            <p>For those who have seen the Earth from space, and for the hundreds and perhaps thousands more who will, the experience most certainly changes your perspective. The things that we share in our world are far more valuable than those which divide us.</p>
-
-            <h2 class="section-heading">The Final Frontier</h2>
-
-            <p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
-
-            <p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
-
-            <blockquote class="blockquote">The dreams of yesterday are the hopes of today and the reality of tomorrow. Science has not yet mastered prophecy. We predict too much for the next year and yet far too little for the next ten.</blockquote>
-
-            <p>Spaceflights cannot be stopped. This is not the work of any one man or even a group of men. It is a historical process which mankind is carrying out in accordance with the natural laws of human development.</p>
-
-            <h2 class="section-heading">Reaching for the Stars</h2>
-
-            <p>As we got further and further away, it [the Earth] diminished in size. Finally it shrank to the size of a marble, the most beautiful you can imagine. That beautiful, warm, living object looked so fragile, so delicate, that if you touched it with a finger it would crumble and fall apart. Seeing this has to change a man.</p>
-
-            <a href="#">
-              <img class="img-fluid" src="img/post-sample-image.jpg" alt="">
-            </a>
-            <span class="caption text-muted">To go places and do things that have never been done before – that’s what living is all about.</span>
-
-            <p>Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds, to seek out new life and new civilizations, to boldly go where no man has gone before.</p>
-
-            <p>As I stand out here in the wonders of the unknown at Hadley, I sort of realize there’s a fundamental truth to our nature, Man must explore, and this is exploration at its greatest.</p>
-
-            <p>Placeholder text by
-              <a href="http://spaceipsum.com/">Space Ipsum</a>. Photographs by
-              <a href="https://www.flickr.com/photos/nasacommons/">NASA on The Commons</a>.</p>
+          <div class="col-6 mx-auto">
+            <h5 class="text-left"><span class="fa fa-eye">&nbsp;<?php echo $row_fest['view_count']?></span> &nbsp; &nbsp; <span class="fa fa-heart" style="color: darkred">&nbsp;<?php echo $row_fest['like_count']?>
+                   </span> &nbsp; &nbsp; <span class="fa fa-star" style="color: goldenrod">&nbsp;<?php echo $row_fest['festival_star']?></span></h5>
           </div>
         </div>
-      </div>
-    </article>
 
-    <hr>
+        <hr>
+        <div class="container text-center ">
+
+          <img src="<?php echo $row_fest['thumbnail'] ?>" style="width: 450px; height: 360px;">
+          <hr>
+        </div>
+        <div class="container">
+          <div class="col-md-4">
+            <div class="media font" style="width: 200px;">
+              <h4>homepage</h4></span>
+            </div>
+            <div class="media-body fontbody" style="width: 500px;">
+              <h6> &nbsp; &nbsp; <?php echo $row_fest['homepage'] ?></h6>
+            </div>
+          </div>
+          <hr>
+          <div class="col-md-4">
+            <div class="media font" style="width: 150px;">
+              <strong><h4>contact</h4></strong>
+            </div>
+            <div class="media-body fontbody" style="width: 500px;">
+              <h6> &nbsp; &nbsp; <?php echo $row_local['phone_number'] ?></h6>
+            </div>
+          </div>
+          <hr>
+          <div class="col-md-4">
+            <div class="media font" style="width: 150px;">
+              <strong><h4>address</h4></strong>
+            </div>
+            <div class="media-body fontbody" style="width: 500px;">
+              <h6> &nbsp; &nbsp; <?php echo $row_local['local_name']?> <?php echo $row_local['city']?> <?php echo $row_local['locale']?> </h6>
+            </div>
+          </div>
+          <hr>
+          <div class="col-md-4">
+            <div class="media font" style="width: 150px;">
+              <strong><h4>period</h4></strong>
+            </div>
+            <div class="media-body fontbody" style="width: 500px;">
+              <h6> &nbsp; &nbsp; <?php echo $row_period['start'] ?> ~ <?php echo $row_period['end']?> </h6>
+            </div>
+          </div>
+          <hr>
+          <div class="col-md-4">
+            <div class="media font" style="width: 150px;">
+              <strong><h4>detail</h4></strong>
+            </div>
+            <div class="media-body fontbody" style="width: 500px;">
+              <h6> &nbsp; &nbsp; <?php echo $row_fest['festival_content'] ?></h6>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mx-auto">
+        <div class="container font">
+          <div class="row">
+            <div class="col-6 mx-auto">
+              <h2>content</h2>
+
+            </div>
+
+            <div class="col-2 mx-auto">
+              <form action="delete_post.php" method="get">
+                <input type="hidden" name="festid" value="<?php echo $festid ?>">
+                <input type="hidden" name="comid" value="<?php echo $comid ?>">
+                <input type="hidden" name="author" value="<?php echo $row_com['com_author']?>">
+                <button class="btn btn-danger" style="color: black; background-color: transparent; border-color: transparent;">delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <hr>
+
+        <div class="container font text-center">
+          <?php echo $row_com['com_content']?>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <hr>
 
     <!-- Footer -->
     <footer>

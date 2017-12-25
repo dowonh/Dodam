@@ -86,16 +86,10 @@
           <a class="nav-link" href="about.html">Recently</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="post.html">Sample Post</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="contact.html">Contact</a>
+          <a class="nav-link" href="contact.html">Q & A</a>
         </li>
       </ul>
     </div>
-    <form class="navbar-nav" action="/action_page.php">
-      <input class="form-control" type="text_top_search" placeholder="Search">
-    </form>
     <form class="navbar-nav">
       <li class="nav-item">
         <a href="logout.php">Logout</a>
@@ -115,7 +109,7 @@
           <span class="subheading">반갑습니다 <?php echo $user ?>님 :)</span>
         </div>
         <div class="container text-center">
-          <a class="btn btn-primary" style="border-color: transparent; background-color: transparent; font-size: 30px;" href="post_upload.html">Upload Post</a>
+          <a class="btn btn-primary" style="border-color: transparent; background-color: transparent; font-size: 30px;" href="post_upload2.html">Upload Post</a>
         </div>
       </div>
     </div>
@@ -133,19 +127,25 @@
 
       while($row = mysqli_fetch_assoc($result)) {
            $title = $row['com_title'];
-           $content = $row['com_content'];
            $author = $row['com_author'];
+           $festivalid = $row['festival_id'];
            $datetime = $row['com_datetime'];
+
+            $sql1 = "SELECT festival_name FROM festival WHERE festival_id = '$festivalid'";
+            $result1 = mysqli_query($conn, $sql1);
+            $row1 = mysqli_fetch_assoc($result1);
 
         ?>
             <div class="post-preview">
                 <td class="no">
-                    <a href="post.html"><h2 class="post-title">
-                        <?php echo $title ?><br></h2>
+                    <a href="./post.html?id=<?php echo $festivalid?>&comid=<?php echo $row['com_NUM']?>"><h2 class="post-title">
+                        <?php echo $title ?><br><br></h2></a>
+
+                    <a href="./show_gayeon.html?id=<?php echo $festivalid ?>">
                     <h3 class="post-subtitle">
-                        <?php echo $content ?><br>
-                    </h3>
-                    </a>
+                        <?php echo $row1['festival_name'] ?><br>
+                    </h3></a>
+
                     <p class="post-meta">Posted by
                         <a href="#"> <?php echo $author?></a>
                         <?php echo $datetime ?></p>

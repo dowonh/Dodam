@@ -21,24 +21,24 @@ if(!isset($_SESSION['login_user'])){
 
     else {
       $user = $_SESSION['login_user'];
-      $author = $_GET['userid'];
+      $comid = $_GET['comid'];
       $festid = $_GET['festid'];
+      $author = $_GET['author'];
+
 
       if($user == $author) {
         $author = $user;
-        $festid = $_GET['festid'];
 
-        $sql = "SELECT * FROM view WHERE view_festID = '$festid' AND view_guestID = '$author'";
+        $sql = "SELECT * FROM community1 WHERE com_NUM = '$comid'";
         $result = mysqli_query($conn, $sql);
         $result = mysqli_num_rows($result);
 
         if($result) {
-            $sql_delete = "DELETE FROM view WHERE view_festID = '$festid' AND view_guestID = '$author'";
+            $sql_delete = "DELETE FROM community1 WHERE com_NUM = '$comid'";
             $result_delete = mysqli_query($conn, $sql_delete);
 
-            $prevPage = $_SERVER['HTTP_REFERER'];
-
-            header('location:'.$prevPage);
+            echo "<script> alert('삭제 완료!');</script>";
+            echo "<meta http-equiv='refresh' content='0; url=blog.html'>";
         }
 
         else {
