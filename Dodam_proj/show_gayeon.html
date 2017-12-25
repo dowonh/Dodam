@@ -15,10 +15,11 @@
 
     session_start();
     if(!isset($_SESSION['login_user'])){
-
+        $lodis = 0;
     }
 
     else {
+            $lodis = 1;
           $user = $_SESSION['login_user'];
           $festID = $_GET['id'];
              $lodis=1;
@@ -165,6 +166,41 @@
 
 <body>
 
+<?php
+    if($lodis == 1) {
+    ?>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">DoDam DoDam</a>
+        <button class="navbar-toggler navbar-toggler-right ml-md-auto" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="logout.php">Logout</a>
+                    </li>
+                <li class="nav-item">
+                    <a href="blog.html">Community</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html"><?php echo $user?>님 :)</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<?php
+    }
+
+    else
+    {
+
+    ?>
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
@@ -189,6 +225,11 @@
         </div>
     </div>
 </nav>
+
+<?php
+    }
+ ?>
+
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('img/bg-masthead.jpg')">
     <div class="overlay"></div>
@@ -298,19 +339,16 @@
 
         <div class="col-lg-6 mx-auto">
             <div class="container font">
-                <h2>comment</h2>
-                <hr>
-            </div>
                 <?php
                     $sql = "SELECT * FROM comment WHERE festival_id = '$festID'";
                     $result = mysqli_query($conn, $sql);
                     $num = mysqli_num_rows($result);
 
                 ?>
-                <div class="container">
-                    <h5>TOTAL : <?php echo $num ?></h5>
-                    <br>
-                </div>
+                <h2>comment [<?php echo $num?>]</h2>
+                <hr>
+            </div>
+
 
             <!-- 코멘트 창 출력-->
 
