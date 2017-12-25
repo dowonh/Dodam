@@ -11,6 +11,15 @@
     if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
      }
+
+    session_start();
+    if(!isset($_SESSION['login_user'])) {
+          echo "<meta http-equiv='refresh' content='0; url=login.php'>";
+    }
+
+    else {
+        $user = $_SESSION['login_user'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -160,7 +169,7 @@
         <div class="row">
             <div class="col-xl-9  mx-auto">
                 <div class="post-heading" >
-                    <h2>현재 진행 중인 축제 정보</h2>
+                    <h2><?php echo $user ?>님의 관심 지역의 축제 정보입니다 :)</h2>
                 </div>
             </div>
         </div>
@@ -169,16 +178,24 @@
 
 <div class="container" >
     <?php
-       $sql = 'select * from festival LEFT OUTER JOIN locale ON festival.local_id = locale.local_id where local_name LIKE "%전라남도%" ';  $result = mysqli_query($conn, $sql);
-        $resultNum = mysqli_num_rows($result);
+         $sql = "SELECT * FROM guest WHERE guest_ID = '$user'";
+        $result = mysqli_query($conn, $sql);
+        $guestrow = mysqli_fetch_assoc($result);
+
+        $guest_local = $guestrow['guest_local'];
+
+        $sql_local = "SELECT * FROM festival, period, locale WHERE festival.festival_id = period.month_id AND festival.festival_id = locale.local_id AND locale.local_name = '$guest_local' order by period.start desc";
+        $result_local = mysqli_query($conn, $sql_local);
+        $resultNum = mysqli_num_rows($result_local);
+
         ?>
-    <h3 class="fonta">total current : <?php echo $resultNum ?></h3>
+    <h3 class="fonta">total information : <?php echo $resultNum ?></h3>
     <hr>
     <div class="row">
 
-    <?php
+        <?php
 
-        while($row = mysqli_fetch_assoc($result)) {
+        while($row = mysqli_fetch_assoc($result_local)) {
         $f_title = $row['festival_name'];
         $start = $row['start'];
         $end = $row['end'];
@@ -186,23 +203,24 @@
         $city = $row['city'];
         $like = $row['like_count'];
         $view = $row['view_count'];
+        $total_comment = $row['total_comment'];
 
         ?>
 
-        <div class="col-4 mx-auto" >
+        <div class="col-4" >
             <div class="card">
                 <div class="card-header font" style="justify-content: center;">
                     <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"> <img src="<?php echo $row['thumbnail'] ?>" style="margin-bottom: -13px; margin-top: -13px; margin-left: -21px; width: 350px; height: 200px;"></a>
                 </div>
-                <div class="card-body font" style="height: 275px">
-                    <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><h4 class="text-center" style="height: 50px; font-size: 22px;"><?php echo $f_title ?></h4></a>
+                <div class="card-body fonta" style="height: 275px">
+                    <a href="./show_gayeon.html?id=<?php echo $row['festival_id'] ?>"><h4 class="text-center" style="height: 50px; font-size: 20px;"><?php echo $f_title ?> [<?php echo $total_comment ?>]</h4></a>
                     <hr>
-                    <h5 class="font" style="font-size: 18px;"><span class="fa fa-map">&nbsp; <?php echo $local_name ?>&nbsp;<?php echo $city ?></span></h5>
+                    <h5 class="fonta" style="font-size: 17px;"><span class="fa fa-map">&nbsp; <?php echo $local_name ?>&nbsp;<?php echo $city ?></span></h5>
                     <br>
-                    <h6>시작날짜 : <?php echo $start ?></h6>
-                    <h6>끝 날짜 : <?php echo $end ?></h6>
+                    <h6 class="fonta" style="font-size: 15px;">시작날짜 : <?php echo $start ?></h6>
+                    <h6 class="fonta" style="font-size: 15px;">끝 날짜 : <?php echo $end ?></h6>
                     <hr>
-                    <h5 class="text-left"><span class="fa fa-heart"  style="color: darkred">&nbsp;<?php echo $like?></span> &nbsp; &nbsp; <span class="fa fa-eye">&nbsp;<?php echo $view?>
+                    <h5 class="text-left fonta" style="font-size: 20px"><span class="fa fa-heart"  style="color: darkred">&nbsp;<?php echo $like?></span> &nbsp; &nbsp; <span class="fa fa-eye">&nbsp;<?php echo $view?>
                     </span></h5>
                 </div>
             </div>

@@ -31,9 +31,16 @@
     $sql = "INSERT INTO comment (comment, festival_id, comment_name, comment_datetime) VALUES ('$content', '$id', '$user', '$datetime')";
     $result = mysqli_query($conn, $sql);
 
+    if($result) {
+        $sql_count = "UPDATE festival SET total_comment = total_comment + 1 WHERE festival_id = '$id'";
+        $result_count = mysqli_query($conn, $sql_count);
+
+
+
 	$prevPage = $_SERVER['HTTP_REFERER'];
 
 	header('location:'.$prevPage);
+    }
 
 
 }

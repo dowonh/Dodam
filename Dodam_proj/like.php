@@ -32,6 +32,7 @@
     if(!$result) {
       $sql = "insert into heart (like_guestID, like_festID, like_datetime) VALUES ('$user', '$id', '$datetime')";
     $sql2 = "update festival set like_count = like_count + 1 where festival_id = '$id' ";
+
     }
 
     else {
