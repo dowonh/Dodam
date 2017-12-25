@@ -326,6 +326,7 @@
 
                 while($row = mysqli_fetch_assoc($result)) {
 
+
             ?>
                 <div class="media" style="margin-left: -15px; margin-right: -15px;">
                     <a href="#"><img src="../Dodam_proj/img/img_avatar1.png" class="rounded-circle" style="width: 90px; height: 90px;"> </a>
@@ -336,10 +337,11 @@
                             <?php echo $row['comment_datetime']?>
                         </h6>
                     </div>
-                    <form action="#" method="post">
-                        <a href="#"><i class="fa fa-close"></i></a>
-                        <div style="width: 2px"></div>
-                        <a href="#"><i class="fa fa-pencil"></i></a>
+                    <form action="delete.php" method="get" style="vertical-align: middle;">
+                        <input type="hidden" name="content" value="<?php echo $row['comment'] ?>">
+                        <input type="hidden" name="userid" value="<?php echo $row['comment_name'] ?>">
+                        <input type="hidden" name="festid" value="<?php echo $festID ?>">
+                        <button class="fa fa-close" style="background-color: transparent; border-color: transparent;"></button>
                     </form>
                 </div>
                 <div style="height: 8px;"></div>
