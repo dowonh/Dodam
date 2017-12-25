@@ -211,7 +211,12 @@
 
                 <form action="like.php" method="get">
                     <input type="hidden" name="id" value="<?php echo $festID ?> ">
-                    <button class="btn btn-danger"><span class="fa fa-heart">&nbsp; &nbsp;heart</span></button>
+                    <button class="btn btn-danger" onclick="heart_confirm()" ><span class="fa fa-heart">&nbsp; &nbsp;heart</span></button>
+                    <script>
+                          function heart_confirm() {
+                              alert("HEART를 클릭하였습니다!");
+                        }
+                        </script>
                 </form>
             </div>
 
@@ -353,7 +358,12 @@
                 <form action="comment.php" method="get">
                     <input type="text" name="com" placeholder="Write Comment" style="width: 414px; height: 59px; margin-top: 2px; padding-left: 10px;">
                     <input type="hidden" name="festid" value="<?php echo $festID ?>">
-                    <button class="btn btn-danger text-center" type="submit" style="width: 90px;  height: 59px; margin-bottom: 6px; padding: 5px">send</button>
+                    <button class="btn btn-danger text-center" type="submit" onclick="comment_confirm()" style="width: 90px;  height: 59px; margin-bottom: 6px; padding: 5px">send</button>
+                    <script>
+                    function comment_confirm() {
+                        alert("comment가 등록되었습니다!");
+                    }
+                    </script>
                 </form>
             </div>
         </div>
